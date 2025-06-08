@@ -22,7 +22,7 @@ const StickyCTA = () => {
 
   const handleWhatsAppClick = () => {
     const whatsappMessage = encodeURIComponent(
-      "Hi! I'm interested in your digital services. Can we discuss my project?",
+      "Hi! I'm interested in your digital services. Can we discuss my project?"
     );
     window.open(`https://wa.me/1234567890?text=${whatsappMessage}`, "_blank");
     setIsOpen(false);
@@ -115,7 +115,7 @@ const StickyCTA = () => {
               <form onSubmit={handleCallbackSubmit} className="space-y-4">
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <Label htmlFor="name" className="text-xs text-obsidian-700">
+                    <Label htmlFor="name" className="text-xs text-slate-700">
                       Name
                     </Label>
                     <Input
@@ -128,10 +128,7 @@ const StickyCTA = () => {
                     />
                   </div>
                   <div>
-                    <Label
-                      htmlFor="phone"
-                      className="text-xs text-obsidian-700"
-                    >
+                    <Label htmlFor="phone" className="text-xs text-slate-700">
                       Phone
                     </Label>
                     <Input
@@ -147,7 +144,7 @@ const StickyCTA = () => {
                 </div>
 
                 <div>
-                  <Label htmlFor="email" className="text-xs text-obsidian-700">
+                  <Label htmlFor="email" className="text-xs text-slate-700">
                     Email
                   </Label>
                   <Input

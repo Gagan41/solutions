@@ -93,7 +93,7 @@ const ROICalculator = () => {
         >
           <h2 className="text-4xl font-bold text-obsidian-900 mb-4">
             ROI{" "}
-            <span className="bg-gradient-to-r from-gold-500 to-gold-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-slate-600 to-slate-700 bg-clip-text text-transparent">
               Calculator
             </span>
           </h2>
@@ -111,7 +111,7 @@ const ROICalculator = () => {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <Card className="shadow-xl border border-platinum-200">
+            <Card className="shadow-sm border border-slate-200">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-obsidian-900">
                   <Calculator className="w-5 h-5" />
@@ -206,7 +206,7 @@ const ROICalculator = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <Card className="shadow-xl border border-platinum-200 h-full">
+            <Card className="shadow-sm border border-slate-200 h-full">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-obsidian-900">
                   <TrendingUp className="w-5 h-5" />
@@ -223,32 +223,32 @@ const ROICalculator = () => {
 
                     <TabsContent value="monthly" className="space-y-4 mt-6">
                       <div className="grid grid-cols-2 gap-4">
-                        <div className="text-center p-4 bg-red-50 rounded-lg">
-                          <DollarSign className="w-6 h-6 text-red-600 mx-auto mb-2" />
-                          <div className="text-2xl font-bold text-red-700">
+                        <div className="text-center p-4 bg-slate-50 rounded-lg">
+                          <DollarSign className="w-6 h-6 text-slate-600 mx-auto mb-2" />
+                          <div className="text-2xl font-bold text-slate-700">
                             {formatCurrency(roiData.currentRevenue)}
                           </div>
-                          <div className="text-sm text-red-600">
+                          <div className="text-sm text-slate-600">
                             Current Revenue
                           </div>
                         </div>
 
-                        <div className="text-center p-4 bg-green-50 rounded-lg">
-                          <TrendingUp className="w-6 h-6 text-green-600 mx-auto mb-2" />
-                          <div className="text-2xl font-bold text-green-700">
+                        <div className="text-center p-4 bg-slate-50 rounded-lg">
+                          <TrendingUp className="w-6 h-6 text-slate-600 mx-auto mb-2" />
+                          <div className="text-2xl font-bold text-slate-700">
                             {formatCurrency(roiData.projectedRevenue)}
                           </div>
-                          <div className="text-sm text-green-600">
+                          <div className="text-sm text-slate-600">
                             Projected Revenue
                           </div>
                         </div>
                       </div>
 
-                      <div className="text-center p-6 bg-gradient-to-r from-gold-50 to-gold-100 rounded-lg">
-                        <div className="text-3xl font-bold text-gold-700 mb-2">
+                      <div className="text-center p-6 bg-gradient-to-r from-slate-50 to-slate-100 rounded-lg">
+                        <div className="text-3xl font-bold text-slate-700 mb-2">
                           {formatCurrency(roiData.monthlyROI)}
                         </div>
-                        <div className="text-gold-600 font-medium">
+                        <div className="text-slate-600 font-medium">
                           Additional Monthly Revenue
                         </div>
                       </div>
@@ -270,22 +270,22 @@ const ROICalculator = () => {
                       </div>
 
                       <div className="grid grid-cols-2 gap-4">
-                        <div className="text-center p-4 bg-blue-50 rounded-lg">
-                          <Users className="w-6 h-6 text-blue-600 mx-auto mb-2" />
-                          <div className="text-xl font-bold text-blue-700">
+                        <div className="text-center p-4 bg-slate-50 rounded-lg">
+                          <Users className="w-6 h-6 text-slate-600 mx-auto mb-2" />
+                          <div className="text-xl font-bold text-slate-700">
                             +{roiData.projectedTrafficIncrease}%
                           </div>
-                          <div className="text-sm text-blue-600">
+                          <div className="text-sm text-slate-600">
                             Traffic Growth
                           </div>
                         </div>
 
-                        <div className="text-center p-4 bg-purple-50 rounded-lg">
-                          <TrendingUp className="w-6 h-6 text-purple-600 mx-auto mb-2" />
-                          <div className="text-xl font-bold text-purple-700">
+                        <div className="text-center p-4 bg-slate-50 rounded-lg">
+                          <TrendingUp className="w-6 h-6 text-slate-600 mx-auto mb-2" />
+                          <div className="text-xl font-bold text-slate-700">
                             +{roiData.projectedConversionIncrease}%
                           </div>
-                          <div className="text-sm text-purple-600">
+                          <div className="text-sm text-slate-600">
                             Conversion Boost
                           </div>
                         </div>
@@ -319,7 +319,7 @@ const ROICalculator = () => {
                         onChange={(e) => setEmail(e.target.value)}
                         className="flex-1"
                       />
-                      <Button className="bg-gold-600 hover:bg-gold-700">
+                      <Button className="bg-slate-600 hover:bg-slate-700">
                         Get Plan
                       </Button>
                     </div>
