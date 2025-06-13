@@ -12,7 +12,7 @@ import ExitIntentPopup from "@/components/ExitIntentPopup";
 
 export default function Page() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen w-full bg-gradient-to-br from-[#181C2A] via-[#232946] to-[#181C2A]">
       <Navbar />
       <HeroSection />
       <ServicesSection />

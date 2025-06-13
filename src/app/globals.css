@@ -63,9 +63,9 @@
   * {
     @apply border-border;
   }
-  body, html {
-    @apply bg-background text-foreground;
-    background: #fff !important;
+  body,
+  html {
+    @apply text-foreground;
   }
 }
 
@@ -73,15 +73,12 @@
   background: none !important;
 }
 
-[role="slider"].rounded-full {
-  background: rgb(203, 208, 214) !important;
-  border-color: rgb(203, 208, 214) !important;
+[role="slider"] {
+  aspect-ratio: 1 !important;
+  border-radius: 9999px !important;
+  background: transparent !important;
 }
 
 [data-orientation="horizontal"].bg-primary {
   background: rgb(23, 164, 235) !important;
-}
-
-.hero-gradient-bg {
-  background: radial-gradient(ellipse at top, #a259f7 0%, #1a1446 60%, #05021a 100%);
 }

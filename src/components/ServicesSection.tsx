@@ -73,8 +73,16 @@ const ServicesSection = () => {
   };
 
   return (
-    <section id="services" className="py-20 bg-platinum-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section
+      id="services"
+      className="py-24 px-6 bg-transparent overflow-hidden"
+    >
+      {/* Glassmorphic/Blurred Gradient Background */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute -top-32 -left-32 w-96 h-96 bg-gradient-to-br from-purple-700/30 to-blue-500/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-tr from-blue-700/30 to-purple-500/20 rounded-full blur-3xl" />
+      </div>
+      <div className="relative z-10 max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -82,13 +90,13 @@ const ServicesSection = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-obsidian-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-4 tracking-tight font-inter drop-shadow-lg">
             Our{" "}
-            <span className="bg-gradient-to-r from-obsidian-700 to-obsidian-900 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
               Services
             </span>
           </h2>
-          <p className="text-xl text-obsidian-600 max-w-3xl mx-auto">
+          <p className="text-xl text-white/80 max-w-3xl mx-auto font-manrope drop-shadow-md">
             We provide comprehensive digital solutions to help your business
             thrive in the digital landscape.
           </p>
@@ -104,37 +112,42 @@ const ServicesSection = () => {
           {services.map((service, index) => {
             const IconComponent = service.icon;
             return (
-              <motion.div key={index} variants={itemVariants}>
-                <Card className="h-full hover:shadow-xl transition-all duration-300 border border-platinum-200 shadow-lg bg-white group hover:border-gold-200">
+              <motion.div
+                key={index}
+                variants={itemVariants}
+                className="relative"
+              >
+                {/* Glassmorphic Card */}
+                <Card className="h-full group border-none bg-white/10 backdrop-blur-lg shadow-2xl rounded-3xl transition-all duration-300 hover:shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] hover:bg-white/20 ring-1 ring-white/10">
                   <CardHeader className="text-center pb-4">
                     <motion.div
                       whileHover={{ scale: 1.1, rotate: 5 }}
-                      className="mx-auto mb-4 p-4 bg-gradient-to-br from-obsidian-700 to-obsidian-800 rounded-2xl w-16 h-16 flex items-center justify-center"
+                      className="mx-auto mb-4 p-4 bg-gradient-to-br from-blue-700/80 to-purple-700/80 rounded-2xl w-16 h-16 flex items-center justify-center shadow-lg"
                     >
-                      <IconComponent className="w-8 h-8 text-white" />
+                      <IconComponent className="w-8 h-8 text-white drop-shadow-md" />
                     </motion.div>
-                    <CardTitle className="text-2xl font-bold text-obsidian-900 group-hover:text-obsidian-700 transition-colors">
+                    <CardTitle className="text-2xl font-bold text-white group-hover:text-blue-200 transition-colors font-manrope drop-shadow">
                       {service.title}
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="text-center">
-                    <CardDescription className="text-obsidian-600 mb-6 text-base leading-relaxed">
+                    <CardDescription className="text-white/80 mb-6 text-base leading-relaxed font-inter">
                       {service.description}
                     </CardDescription>
                     <ul className="space-y-2 mb-6">
                       {service.features.map((feature, featureIndex) => (
                         <li
                           key={featureIndex}
-                          className="text-sm text-obsidian-700 flex items-center justify-center gap-2"
+                          className="text-sm text-white/90 flex items-center justify-center gap-2 font-manrope"
                         >
-                          <div className="w-1.5 h-1.5 bg-gold-500 rounded-full"></div>
+                          <div className="w-1.5 h-1.5 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full"></div>
                           {feature}
                         </li>
                       ))}
                     </ul>
                     <Button
                       variant="outline"
-                      className="group-hover:bg-obsidian-700 group-hover:text-white group-hover:border-obsidian-700 transition-all duration-300 flex items-center gap-2 border-obsidian-200"
+                      className="group-hover:bg-gradient-to-r group-hover:from-blue-700 group-hover:to-purple-700 group-hover:text-white group-hover:border-transparent transition-all duration-300 flex items-center gap-2 border-white/20 bg-white/10 text-white/90 font-inter rounded-full shadow-md backdrop-blur-md"
                     >
                       Learn More
                       <ArrowRight
@@ -158,7 +171,7 @@ const ServicesSection = () => {
         >
           <Button
             size="lg"
-            className="bg-gradient-to-r from-obsidian-800 to-obsidian-900 hover:from-obsidian-900 hover:to-obsidian-800 text-white px-8 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 border border-obsidian-700"
+            className="bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-4 text-lg font-semibold rounded-full shadow-xl transition-all duration-300 border-none font-manrope"
           >
             Get a Free Consultation
           </Button>

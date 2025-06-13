@@ -158,62 +158,71 @@ const ClientSuccessTimeline = () => {
   };
 
   return (
-    <section className="py-20 bg-platinum-50">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-24 px-6 sm:px-8 lg:px-12">
+      <div className="max-w-4xl mx-auto relative z-10">
+        {/* Gradient/Blur overlays for depth */}
+        <div className="absolute inset-0 pointer-events-none z-0">
+          <div className="absolute -top-24 -left-24 w-96 h-96 bg-gradient-to-br from-blue-700/30 to-purple-500/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-tr from-blue-700/30 to-purple-500/20 rounded-full blur-3xl" />
+        </div>
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16 relative z-10 px-2"
         >
-          <h2 className="text-4xl font-bold text-obsidian-900 mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-snug text-white drop-shadow-lg font-inter mb-4">
             Client{" "}
-            <span className="bg-gradient-to-r from-obsidian-700 to-obsidian-900 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
               Success Stories
             </span>
           </h2>
-          <p className="text-xl text-obsidian-600 max-w-3xl mx-auto">
+          <p className="text-lg md:text-xl text-white/80 max-w-3xl mx-auto font-manrope drop-shadow-md">
             Real results from real businesses. See how we've helped companies
             like yours achieve remarkable growth.
           </p>
         </motion.div>
 
-        <div className="relative">
+        <div className="relative z-10">
           {/* Timeline Line */}
-          <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-obsidian-300 via-gold-400 to-obsidian-300"></div>
+          <div className="absolute left-4 sm:left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-400 via-purple-400 to-pink-400 opacity-40"></div>
 
-          <div className="space-y-12">
+          <div className="space-y-8 sm:space-y-12">
             {caseStudies.map((study, index) => (
               <motion.div
                 key={study.id}
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
+                transition={{
+                  duration: 0.6,
+                  delay: index * 0.2,
+                  ease: "easeOut",
+                }}
                 viewport={{ once: true }}
                 className="relative"
               >
                 {/* Timeline Dot */}
-                <div className="absolute left-6 w-4 h-4 bg-gold-500 rounded-full border-4 border-white shadow-lg z-10"></div>
+                <div className="absolute left-2 sm:left-6 w-4 h-4 bg-gradient-to-br from-blue-400 via-purple-400 to-pink-400 rounded-full border-4 border-white/30 shadow-lg z-10"></div>
 
-                <div className="ml-16">
-                  <Card className="shadow-lg border border-platinum-200 bg-white hover:shadow-xl transition-all duration-300">
-                    <CardContent className="p-6">
+                <div className="ml-8 sm:ml-16">
+                  <Card className="border-none bg-white/10 backdrop-blur-lg shadow-2xl rounded-2xl transition-all duration-300 group relative z-10">
+                    <CardContent className="p-4 sm:p-8">
                       {/* Header */}
-                      <div className="flex items-start justify-between mb-4">
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 gap-4 sm:gap-0">
                         <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-2">
-                            <h3 className="text-xl font-bold text-obsidian-900">
+                          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 mb-2">
+                            <h3 className="text-lg sm:text-xl font-bold text-white font-manrope drop-shadow">
                               {study.client}
                             </h3>
                             <Badge
                               variant="outline"
-                              className="text-obsidian-600"
+                              className="bg-white/10 text-white/80 font-inter rounded-full px-3 py-1 text-xs border-none"
                             >
                               {study.industry}
                             </Badge>
                           </div>
-                          <div className="flex items-center gap-2 text-sm text-obsidian-500">
+                          <div className="flex items-center gap-2 text-sm text-white/60 font-inter">
                             <Clock className="w-4 h-4" />
                             <span>{study.timeline} project</span>
                           </div>
@@ -221,29 +230,31 @@ const ClientSuccessTimeline = () => {
                         <img
                           src={study.image}
                           alt={study.client}
-                          className="w-16 h-16 rounded-lg object-cover"
+                          className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl object-cover shadow-lg border-2 border-white/20"
                         />
                       </div>
 
                       {/* Challenge */}
                       <div className="mb-4">
-                        <h4 className="font-semibold text-obsidian-800 mb-2">
+                        <h4 className="font-semibold text-white font-inter mb-2 drop-shadow">
                           Challenge:
                         </h4>
-                        <p className="text-obsidian-600">{study.challenge}</p>
+                        <p className="text-white/80 font-manrope">
+                          {study.challenge}
+                        </p>
                       </div>
 
                       {/* Quick Results Preview */}
-                      <div className="grid grid-cols-3 gap-4 mb-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
                         {study.results.slice(0, 3).map((result, idx) => (
                           <div
                             key={idx}
-                            className="text-center p-3 bg-green-50 rounded-lg"
+                            className="text-center p-3 bg-white/10 rounded-xl shadow-inner"
                           >
-                            <div className="text-lg font-bold text-green-700">
+                            <div className="text-lg font-bold text-green-300 font-inter drop-shadow">
                               {result.improvement}
                             </div>
-                            <div className="text-xs text-green-600">
+                            <div className="text-xs text-white/70 font-manrope">
                               {result.metric}
                             </div>
                           </div>
@@ -254,7 +265,8 @@ const ClientSuccessTimeline = () => {
                       <Button
                         variant="ghost"
                         onClick={() => toggleExpanded(study.id)}
-                        className="w-full flex items-center justify-center gap-2 text-obsidian-600 hover:text-obsidian-800"
+                        className="w-full flex items-center justify-center gap-2 text-white/80 hover:text-white font-inter rounded-xl focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none hover:bg-white/20 hover:bg-opacity-10 py-3 sm:py-2"
+                        style={{ minHeight: 44 }}
                       >
                         {expandedCase === study.id ? (
                           <>
@@ -277,41 +289,41 @@ const ClientSuccessTimeline = () => {
                             animate={{ opacity: 1, height: "auto" }}
                             exit={{ opacity: 0, height: 0 }}
                             transition={{ duration: 0.3 }}
-                            className="mt-6 pt-6 border-t border-platinum-200"
+                            className="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-white/10"
                           >
                             {/* Solution */}
-                            <div className="mb-6">
-                              <h4 className="font-semibold text-obsidian-800 mb-2">
+                            <div className="mb-4 sm:mb-6">
+                              <h4 className="font-semibold text-white font-inter mb-2 drop-shadow">
                                 Our Solution:
                               </h4>
-                              <p className="text-obsidian-600">
+                              <p className="text-white/80 font-manrope">
                                 {study.solution}
                               </p>
                             </div>
 
                             {/* Detailed Results */}
-                            <div className="mb-6">
-                              <h4 className="font-semibold text-obsidian-800 mb-4">
+                            <div className="mb-4 sm:mb-6">
+                              <h4 className="font-semibold text-white font-inter mb-4 drop-shadow">
                                 Detailed Results:
                               </h4>
                               <div className="space-y-3">
                                 {study.results.map((result, idx) => (
                                   <div
                                     key={idx}
-                                    className="flex items-center justify-between p-3 bg-platinum-50 rounded-lg"
+                                    className="flex items-center justify-between p-3 bg-white/10 rounded-xl shadow-inner"
                                   >
-                                    <span className="font-medium text-obsidian-700">
+                                    <span className="font-medium text-white font-manrope">
                                       {result.metric}
                                     </span>
                                     <div className="flex items-center gap-4">
-                                      <span className="text-sm text-obsidian-500">
+                                      <span className="text-sm text-white/60 font-inter">
                                         {result.before}
                                       </span>
-                                      <TrendingUp className="w-4 h-4 text-green-600" />
-                                      <span className="text-sm font-medium text-obsidian-700">
+                                      <TrendingUp className="w-4 h-4 text-green-300" />
+                                      <span className="text-sm font-medium text-white font-inter">
                                         {result.after}
                                       </span>
-                                      <Badge className="bg-green-100 text-green-800">
+                                      <Badge className="bg-green-400/10 text-green-300 font-inter rounded-full px-2 py-1 text-xs border-none">
                                         {result.improvement}
                                       </Badge>
                                     </div>
@@ -321,13 +333,13 @@ const ClientSuccessTimeline = () => {
                             </div>
 
                             {/* Testimonial */}
-                            <div className="bg-gradient-to-r from-obsidian-800 to-obsidian-900 rounded-lg p-6 text-white">
-                              <Quote className="w-8 h-8 text-gold-400 mb-4" />
-                              <p className="text-lg mb-4 italic">
+                            <div className="bg-gradient-to-r from-blue-900/80 to-purple-900/80 rounded-xl p-4 sm:p-6 text-white shadow-lg mt-6 sm:mt-8">
+                              <Quote className="w-8 h-8 text-yellow-300 mb-4" />
+                              <p className="text-lg mb-4 italic font-manrope">
                                 "{study.testimonial.text}"
                               </p>
                               <div className="flex items-center gap-3">
-                                <div className="flex text-gold-400">
+                                <div className="flex text-yellow-300">
                                   {[...Array(5)].map((_, i) => (
                                     <Star
                                       key={i}
@@ -336,10 +348,10 @@ const ClientSuccessTimeline = () => {
                                   ))}
                                 </div>
                                 <div>
-                                  <div className="font-semibold">
+                                  <div className="font-semibold font-inter">
                                     {study.testimonial.author}
                                   </div>
-                                  <div className="text-sm text-platinum-300">
+                                  <div className="text-sm text-white/60 font-manrope">
                                     {study.testimonial.position}
                                   </div>
                                 </div>
@@ -359,14 +371,14 @@ const ClientSuccessTimeline = () => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
           viewport={{ once: true }}
-          className="text-center mt-16"
+          className="text-center mt-10 sm:mt-16 relative z-10 px-2"
         >
-          <p className="text-obsidian-600 mb-6">
+          <p className="text-white/80 mb-6 font-manrope text-base sm:text-lg">
             Ready to become our next success story?
           </p>
-          <Button className="bg-gradient-to-r from-obsidian-800 to-obsidian-900 hover:from-obsidian-900 hover:to-obsidian-800 text-white px-8 py-3 text-lg">
+          <Button className="bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 hover:from-purple-700 hover:to-blue-700 text-white px-6 sm:px-8 py-3 text-base sm:text-lg rounded-xl font-bold shadow-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none font-inter">
             Start Your Success Story
           </Button>
         </motion.div>

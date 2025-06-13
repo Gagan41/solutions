@@ -79,7 +79,7 @@ const WebsiteAuditTool = () => {
         score: Math.floor(Math.random() * 40) + 60, // 60-100
         issues: (auditType === "seo" ? seoIssues : uiuxIssues).slice(
           0,
-          Math.floor(Math.random() * 4) + 1,
+          Math.floor(Math.random() * 4) + 1
         ),
         recommendations: (auditType === "seo"
           ? seoRecommendations
@@ -105,54 +105,59 @@ const WebsiteAuditTool = () => {
   };
 
   return (
-    <section className="py-20 bg-white">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-24 px-6 sm:px-8 lg:px-12">
+      <div className="max-w-4xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-14"
         >
-          <h2 className="text-4xl font-bold text-obsidian-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight leading-snug text-white drop-shadow-lg font-inter mb-4">
             Free Website{" "}
-            <span className="bg-gradient-to-r from-gold-500 to-gold-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
               Audit Tool
             </span>
           </h2>
-          <p className="text-xl text-obsidian-600 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto font-manrope drop-shadow-md">
             Get an instant analysis of your website's performance, SEO, and user
             experience.
           </p>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          initial={{ opacity: 0, scale: 0.96 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
           viewport={{ once: true }}
         >
-          <Card className="shadow-xl border border-platinum-200">
-            <CardHeader className="text-center">
-              <CardTitle className="text-2xl text-obsidian-900">
+          <Card className="relative z-10 border-none bg-white/10 backdrop-blur-lg shadow-2xl rounded-2xl px-0 py-0 overflow-hidden">
+            <div className="absolute inset-0 pointer-events-none z-0">
+              <div className="absolute -top-16 -left-16 w-72 h-72 bg-gradient-to-br from-blue-700/30 to-purple-500/20 rounded-full blur-2xl" />
+              <div className="absolute bottom-0 right-0 w-72 h-72 bg-gradient-to-tr from-blue-700/20 to-purple-500/10 rounded-full blur-2xl" />
+            </div>
+            <CardHeader className="text-center relative z-10">
+              <CardTitle className="text-2xl md:text-3xl font-bold text-white font-inter drop-shadow">
                 Enter Your Website URL
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-6">
+            <CardContent className="space-y-8 relative z-10 px-6 sm:px-8 lg:px-12 py-8">
               <div className="space-y-4">
-                <div className="flex gap-4">
+                <div className="flex flex-col md:flex-row gap-4">
                   <Input
                     type="url"
                     placeholder="https://yourwebsite.com"
                     value={url}
                     onChange={(e) => setUrl(e.target.value)}
-                    className="flex-1"
+                    className="flex-1 bg-white/80 text-obsidian-900 rounded-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none"
+                    aria-label="Website URL"
                   />
                   <Select value={auditType} onValueChange={setAuditType}>
-                    <SelectTrigger className="w-40">
+                    <SelectTrigger className="w-full md:w-40 bg-white/80 rounded-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none">
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="bg-white/90 rounded-lg">
                       <SelectItem value="seo">SEO Audit</SelectItem>
                       <SelectItem value="uiux">UI/UX Audit</SelectItem>
                     </SelectContent>
@@ -161,7 +166,8 @@ const WebsiteAuditTool = () => {
                 <Button
                   onClick={analyzeWebsite}
                   disabled={!url || isAnalyzing}
-                  className="w-full bg-obsidian-800 hover:bg-obsidian-900"
+                  className="w-full bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 hover:from-purple-700 hover:to-blue-700 text-white font-bold rounded-xl shadow-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none transition-all duration-300"
+                  aria-label="Get Free Audit"
                 >
                   {isAnalyzing ? (
                     <>
@@ -183,11 +189,14 @@ const WebsiteAuditTool = () => {
                   animate={{ opacity: 1 }}
                   className="text-center py-8"
                 >
-                  <div className="inline-flex items-center gap-2 text-obsidian-600">
+                  <div className="inline-flex items-center gap-2 text-white/80">
                     <Zap className="w-5 h-5 animate-pulse" />
                     <span>Analyzing your website...</span>
                   </div>
-                  <Progress value={33} className="mt-4 max-w-md mx-auto" />
+                  <Progress
+                    value={33}
+                    className="mt-4 max-w-md mx-auto bg-white/20"
+                  />
                 </motion.div>
               )}
 
@@ -195,36 +204,37 @@ const WebsiteAuditTool = () => {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="space-y-6"
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  className="space-y-8"
                 >
                   {/* Score Display */}
-                  <div className="text-center py-6 bg-platinum-50 rounded-lg">
+                  <div className="text-center py-6 bg-white/10 rounded-xl shadow-inner">
                     <div
-                      className={`text-6xl font-bold ${getScoreColor(result.score)} mb-2`}
+                      className={`text-6xl font-extrabold font-inter mb-2 drop-shadow-lg ${getScoreColor(result.score)}`}
                     >
                       {result.score}
                     </div>
-                    <div className="text-xl text-obsidian-700">
+                    <div className="text-xl text-white/90 font-manrope font-medium">
                       {getScoreLabel(result.score)}
                     </div>
-                    <div className="text-sm text-obsidian-500 mt-2">
+                    <div className="text-sm text-white/60 mt-2">
                       Load time: {result.loadTime.toFixed(1)}s
                     </div>
                   </div>
 
                   {/* Issues Found */}
                   <div>
-                    <h3 className="text-lg font-semibold text-obsidian-900 mb-3 flex items-center gap-2">
-                      <AlertCircle className="w-5 h-5 text-red-500" />
+                    <h3 className="text-lg font-semibold text-white flex items-center gap-2 mb-3 font-inter">
+                      <AlertCircle className="w-5 h-5 text-red-400" />
                       Issues Found
                     </h3>
                     <ul className="space-y-2">
                       {result.issues.map((issue, index) => (
                         <li
                           key={index}
-                          className="flex items-start gap-2 text-obsidian-600"
+                          className="flex items-start gap-2 text-white/80 font-manrope"
                         >
-                          <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0" />
+                          <div className="w-2 h-2 bg-red-400 rounded-full mt-2 flex-shrink-0" />
                           {issue}
                         </li>
                       ))}
@@ -233,17 +243,17 @@ const WebsiteAuditTool = () => {
 
                   {/* Recommendations */}
                   <div>
-                    <h3 className="text-lg font-semibold text-obsidian-900 mb-3 flex items-center gap-2">
-                      <CheckCircle className="w-5 h-5 text-green-500" />
+                    <h3 className="text-lg font-semibold text-white flex items-center gap-2 mb-3 font-inter">
+                      <CheckCircle className="w-5 h-5 text-green-400" />
                       Recommendations
                     </h3>
                     <ul className="space-y-2">
                       {result.recommendations.map((rec, index) => (
                         <li
                           key={index}
-                          className="flex items-start gap-2 text-obsidian-600"
+                          className="flex items-start gap-2 text-white/80 font-manrope"
                         >
-                          <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0" />
+                          <div className="w-2 h-2 bg-green-400 rounded-full mt-2 flex-shrink-0" />
                           {rec}
                         </li>
                       ))}
@@ -251,41 +261,43 @@ const WebsiteAuditTool = () => {
                   </div>
 
                   {/* Lead Capture */}
-                  <div className="bg-gradient-to-r from-obsidian-800 to-obsidian-900 rounded-lg p-6 text-white">
-                    <h3 className="text-xl font-semibold mb-2">
+                  <div className="bg-gradient-to-r from-blue-900/80 to-purple-900/80 rounded-xl p-6 text-white shadow-lg mt-8">
+                    <h3 className="text-xl font-semibold mb-2 font-inter">
                       Get Your Detailed Report
                     </h3>
-                    <p className="text-platinum-200 mb-4">
+                    <p className="text-white/70 mb-4 font-manrope">
                       Enter your email to receive a comprehensive audit report
                       with actionable steps.
                     </p>
-                    <div className="flex gap-3 mb-4">
+                    <div className="flex flex-col sm:flex-row gap-3 mb-4">
                       <Input
                         type="email"
                         placeholder="your@email.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="flex-1 bg-white text-obsidian-900"
+                        className="flex-1 bg-white/80 text-obsidian-900 rounded-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none"
+                        aria-label="Email address"
                       />
-                      <Button className="bg-gold-600 hover:bg-gold-700 text-white">
+                      <Button className="bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 hover:from-purple-700 hover:to-blue-700 text-white font-bold rounded-xl shadow-md focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none transition-all duration-300">
                         Get Report
                       </Button>
                     </div>
                     <div className="text-center">
-                      <p className="text-platinum-300 text-sm mb-3">
+                      <p className="text-white/60 text-sm mb-3 font-manrope">
                         Want a full report? Let's chat!
                       </p>
                       <Button
                         onClick={() => {
                           const message = encodeURIComponent(
-                            `Hi! I just completed a ${auditType === "seo" ? "SEO" : "UI/UX"} audit for ${url} and would like a detailed report. Can you help?`,
+                            `Hi! I just completed a ${auditType === "seo" ? "SEO" : "UI/UX"} audit for ${url} and would like a detailed report. Can you help?`
                           );
                           window.open(
                             `https://wa.me/1234567890?text=${message}`,
-                            "_blank",
+                            "_blank"
                           );
                         }}
-                        className="bg-green-600 hover:bg-green-700 text-white flex items-center gap-2"
+                        className="bg-green-600 hover:bg-green-700 text-white flex items-center gap-2 rounded-xl font-manrope shadow-md focus-visible:ring-2 focus-visible:ring-green-400 focus-visible:outline-none"
+                        aria-label="Chat on WhatsApp"
                       >
                         <MessageSquare className="w-4 h-4" />
                         Chat on WhatsApp

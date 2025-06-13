@@ -53,9 +53,9 @@ const StickyCTA = () => {
           >
             <Button
               size="lg"
-              className="h-14 w-14 rounded-full bg-gradient-to-r from-obsidian-800 to-obsidian-900 hover:from-obsidian-900 hover:to-obsidian-800 text-white shadow-2xl border-2 border-white"
+              className="h-14 w-14 rounded-full bg-gradient-to-r from-obsidian-800 to-obsidian-900 hover:from-obsidian-900 hover:to-obsidian-800 text-white shadow-2xl border-2 border-white flex flex-col items-center justify-center gap-0.5"
             >
-              <MessageSquare className="h-6 w-6" />
+              <PhoneCall className="h-5 w-5 mb-0.5 text-white" />
             </Button>
             <motion.div
               animate={{ scale: [1, 1.2, 1] }}

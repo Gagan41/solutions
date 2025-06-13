@@ -17,7 +17,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 // Add custom styles for the slider thumb
-const sliderStyles = "w-full [&>span]:bg-white [&>div]:bg-slate-200 [&>div]:h-1";
+const sliderStyles =
+  "w-full [&>span]:bg-white [&>div]:bg-slate-200 [&>div]:h-1";
 
 interface ROIData {
   monthlyTraffic: number;
@@ -85,45 +86,50 @@ const ROICalculator = () => {
   };
 
   return (
-    <section className="py-20 bg-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-24 px-6 sm:px-8 lg:px-12">
+      <div className="max-w-6xl mx-auto relative z-10">
+        {/* Gradient/Blur overlays for depth */}
+        <div className="absolute inset-0 pointer-events-none z-0">
+          <div className="absolute -top-24 -left-24 w-96 h-96 bg-gradient-to-br from-blue-700/30 to-purple-500/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-tr from-blue-700/30 to-purple-500/20 rounded-full blur-3xl" />
+        </div>
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-14 relative z-10"
         >
-          <h2 className="text-4xl font-bold text-obsidian-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight leading-snug text-white drop-shadow-lg font-inter mb-4">
             ROI{" "}
-            <span className="bg-gradient-to-r from-slate-600 to-slate-700 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
               Calculator
             </span>
           </h2>
-          <p className="text-xl text-obsidian-600 max-w-3xl mx-auto">
+          <p className="text-lg md:text-xl text-white/80 max-w-3xl mx-auto font-manrope drop-shadow-md">
             See how much revenue you could generate with our digital marketing
             services.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10">
           {/* Input Section */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
             viewport={{ once: true }}
           >
-            <Card className="shadow-sm border border-slate-200">
+            <Card className="border-none bg-white/10 backdrop-blur-lg shadow-2xl rounded-2xl">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-obsidian-900">
+                <CardTitle className="flex items-center gap-2 text-white font-bold font-inter drop-shadow">
                   <Calculator className="w-5 h-5" />
                   Your Current Metrics
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-6">
+              <CardContent className="space-y-8">
                 <div>
-                  <Label className="text-sm font-medium text-obsidian-700">
+                  <Label className="text-sm font-medium text-white/80 font-manrope">
                     Monthly Website Traffic
                   </Label>
                   <div className="mt-2">
@@ -135,9 +141,9 @@ const ROICalculator = () => {
                       step={500}
                       className={sliderStyles}
                     />
-                    <div className="flex justify-between text-sm text-obsidian-500 mt-1">
+                    <div className="flex justify-between text-sm text-white/60 mt-1 font-inter">
                       <span>1K</span>
-                      <span className="font-medium text-obsidian-700">
+                      <span className="font-medium text-white">
                         {monthlyTraffic[0].toLocaleString()} visitors
                       </span>
                       <span>50K</span>
@@ -146,7 +152,7 @@ const ROICalculator = () => {
                 </div>
 
                 <div>
-                  <Label className="text-sm font-medium text-obsidian-700">
+                  <Label className="text-sm font-medium text-white/80 font-manrope">
                     Conversion Rate (%)
                   </Label>
                   <div className="mt-2">
@@ -158,9 +164,9 @@ const ROICalculator = () => {
                       step={0.1}
                       className={sliderStyles}
                     />
-                    <div className="flex justify-between text-sm text-obsidian-500 mt-1">
+                    <div className="flex justify-between text-sm text-white/60 mt-1 font-inter">
                       <span>0.5%</span>
-                      <span className="font-medium text-obsidian-700">
+                      <span className="font-medium text-white">
                         {conversionRate[0]}%
                       </span>
                       <span>10%</span>
@@ -169,7 +175,7 @@ const ROICalculator = () => {
                 </div>
 
                 <div>
-                  <Label className="text-sm font-medium text-obsidian-700">
+                  <Label className="text-sm font-medium text-white/80 font-manrope">
                     Average Order Value ($)
                   </Label>
                   <div className="mt-2">
@@ -181,9 +187,9 @@ const ROICalculator = () => {
                       step={25}
                       className={sliderStyles}
                     />
-                    <div className="flex justify-between text-sm text-obsidian-500 mt-1">
+                    <div className="flex justify-between text-sm text-white/60 mt-1 font-inter">
                       <span>$25</span>
-                      <span className="font-medium text-obsidian-700">
+                      <span className="font-medium text-white">
                         ${averageOrderValue[0]}
                       </span>
                       <span>$1,000</span>
@@ -193,7 +199,7 @@ const ROICalculator = () => {
 
                 <Button
                   onClick={handleCalculate}
-                  className="w-full bg-obsidian-800 hover:bg-obsidian-900 text-white"
+                  className="w-full bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 hover:from-purple-700 hover:to-blue-700 text-white font-bold rounded-xl shadow-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none transition-all duration-300"
                 >
                   Calculate My ROI
                   <ArrowRight className="w-4 h-4 ml-2" />
@@ -206,12 +212,12 @@ const ROICalculator = () => {
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
             viewport={{ once: true }}
           >
-            <Card className="shadow-sm border border-slate-200 h-full">
+            <Card className="border-none bg-white/10 backdrop-blur-lg shadow-2xl rounded-2xl h-full">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-obsidian-900">
+                <CardTitle className="flex items-center gap-2 text-white font-bold font-inter drop-shadow">
                   <TrendingUp className="w-5 h-5" />
                   Projected Results
                 </CardTitle>
@@ -219,53 +225,63 @@ const ROICalculator = () => {
               <CardContent>
                 {showResults ? (
                   <Tabs defaultValue="monthly" className="w-full">
-                    <TabsList className="grid w-full grid-cols-2 bg-[rgb(100,214,69)]/10">
-                      <TabsTrigger value="monthly" className="data-[state=active]:bg-[rgb(100,214,69)] data-[state=active]:text-white">Monthly</TabsTrigger>
-                      <TabsTrigger value="yearly" className="data-[state=active]:bg-[rgb(100,214,69)] data-[state=active]:text-white">Yearly</TabsTrigger>
+                    <TabsList className="grid w-full grid-cols-2 bg-white/10 rounded-xl">
+                      <TabsTrigger
+                        value="monthly"
+                        className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-700 data-[state=active]:to-purple-700 data-[state=active]:text-white rounded-xl font-bold font-inter"
+                      >
+                        Monthly
+                      </TabsTrigger>
+                      <TabsTrigger
+                        value="yearly"
+                        className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-700 data-[state=active]:to-purple-700 data-[state=active]:text-white rounded-xl font-bold font-inter"
+                      >
+                        Yearly
+                      </TabsTrigger>
                     </TabsList>
 
                     <TabsContent value="monthly" className="space-y-4 mt-6">
                       <div className="grid grid-cols-2 gap-4">
-                        <div className="text-center p-4 bg-slate-50 rounded-lg">
-                          <DollarSign className="w-6 h-6 text-slate-600 mx-auto mb-2" />
-                          <div className="text-2xl font-bold text-slate-700">
+                        <div className="text-center p-4 bg-white/10 rounded-xl shadow-inner">
+                          <DollarSign className="w-6 h-6 text-blue-300 mx-auto mb-2" />
+                          <div className="text-2xl font-bold text-white font-inter drop-shadow">
                             {formatCurrency(roiData.currentRevenue)}
                           </div>
-                          <div className="text-sm text-slate-600">
+                          <div className="text-sm text-white/70 font-manrope">
                             Current Revenue
                           </div>
                         </div>
 
-                        <div className="text-center p-4 bg-slate-50 rounded-lg">
-                          <TrendingUp className="w-6 h-6 text-slate-600 mx-auto mb-2" />
-                          <div className="text-2xl font-bold text-slate-700">
+                        <div className="text-center p-4 bg-white/10 rounded-xl shadow-inner">
+                          <TrendingUp className="w-6 h-6 text-purple-300 mx-auto mb-2" />
+                          <div className="text-2xl font-bold text-white font-inter drop-shadow">
                             {formatCurrency(roiData.projectedRevenue)}
                           </div>
-                          <div className="text-sm text-slate-600">
+                          <div className="text-sm text-white/70 font-manrope">
                             Projected Revenue
                           </div>
                         </div>
                       </div>
 
-                      <div className="text-center p-6 bg-gradient-to-r from-slate-50 to-slate-100 rounded-lg">
-                        <div className="text-3xl font-bold text-slate-700 mb-2">
+                      <div className="text-center p-6 bg-gradient-to-r from-blue-900/80 to-purple-900/80 rounded-xl shadow-lg">
+                        <div className="text-3xl font-bold text-white font-inter mb-2 drop-shadow">
                           {formatCurrency(roiData.monthlyROI)}
                         </div>
-                        <div className="text-slate-600 font-medium">
+                        <div className="text-white/80 font-medium font-manrope">
                           Additional Monthly Revenue
                         </div>
                       </div>
                     </TabsContent>
 
                     <TabsContent value="yearly" className="space-y-4 mt-6">
-                      <div className="text-center p-8 bg-gradient-to-r from-obsidian-800 to-obsidian-900 rounded-lg text-white">
-                        <div className="text-4xl font-bold mb-2">
+                      <div className="text-center p-8 bg-gradient-to-r from-blue-900/80 to-purple-900/80 rounded-xl text-white shadow-lg">
+                        <div className="text-4xl font-bold mb-2 font-inter drop-shadow">
                           {formatCurrency(roiData.yearlyROI)}
                         </div>
-                        <div className="text-platinum-200 font-medium mb-4">
+                        <div className="text-white/80 font-medium mb-4 font-manrope">
                           Additional Yearly Revenue
                         </div>
-                        <div className="text-sm text-platinum-300">
+                        <div className="text-sm text-white/60 font-inter">
                           Based on {roiData.projectedTrafficIncrease}% traffic
                           increase and {roiData.projectedConversionIncrease}%
                           conversion improvement
@@ -273,22 +289,22 @@ const ROICalculator = () => {
                       </div>
 
                       <div className="grid grid-cols-2 gap-4">
-                        <div className="text-center p-4 bg-slate-50 rounded-lg">
-                          <Users className="w-6 h-6 text-slate-600 mx-auto mb-2" />
-                          <div className="text-xl font-bold text-slate-700">
+                        <div className="text-center p-4 bg-white/10 rounded-xl shadow-inner">
+                          <Users className="w-6 h-6 text-blue-300 mx-auto mb-2" />
+                          <div className="text-xl font-bold text-white font-inter drop-shadow">
                             +{roiData.projectedTrafficIncrease}%
                           </div>
-                          <div className="text-sm text-slate-600">
+                          <div className="text-sm text-white/70 font-manrope">
                             Traffic Growth
                           </div>
                         </div>
 
-                        <div className="text-center p-4 bg-slate-50 rounded-lg">
-                          <TrendingUp className="w-6 h-6 text-slate-600 mx-auto mb-2" />
-                          <div className="text-xl font-bold text-slate-700">
+                        <div className="text-center p-4 bg-white/10 rounded-xl shadow-inner">
+                          <TrendingUp className="w-6 h-6 text-purple-300 mx-auto mb-2" />
+                          <div className="text-xl font-bold text-white font-inter drop-shadow">
                             +{roiData.projectedConversionIncrease}%
                           </div>
-                          <div className="text-sm text-slate-600">
+                          <div className="text-sm text-white/70 font-manrope">
                             Conversion Boost
                           </div>
                         </div>
@@ -296,7 +312,7 @@ const ROICalculator = () => {
                     </TabsContent>
                   </Tabs>
                 ) : (
-                  <div className="text-center py-12 text-obsidian-500">
+                  <div className="text-center py-12 text-white/60 font-inter">
                     <Calculator className="w-12 h-12 mx-auto mb-4 opacity-50" />
                     <p>
                       Adjust your metrics and click "Calculate My ROI" to see
@@ -306,23 +322,24 @@ const ROICalculator = () => {
                 )}
 
                 {showResults && (
-                  <div className="mt-6 p-4 bg-obsidian-50 rounded-lg">
-                    <h4 className="font-semibold text-obsidian-900 mb-2">
+                  <div className="mt-6 p-4 bg-white/10 rounded-xl shadow-inner">
+                    <h4 className="font-semibold text-white font-inter mb-2 drop-shadow">
                       Get Your Detailed Growth Plan
                     </h4>
-                    <p className="text-sm text-obsidian-600 mb-3">
+                    <p className="text-sm text-white/70 font-manrope mb-3">
                       See exactly how we'll achieve these results for your
                       business.
                     </p>
-                    <div className="flex gap-2">
+                    <div className="flex flex-col sm:flex-row gap-2">
                       <Input
                         type="email"
                         placeholder="your@email.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="flex-1"
+                        className="flex-1 bg-white/80 text-obsidian-900 rounded-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none"
+                        aria-label="Email address"
                       />
-                      <Button className="bg-slate-600 hover:bg-slate-700">
+                      <Button className="bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 hover:from-purple-700 hover:to-blue-700 text-white font-bold rounded-xl shadow-md focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none transition-all duration-300">
                         Get Plan
                       </Button>
                     </div>

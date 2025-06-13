@@ -20,7 +20,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <Script src="https://api.tempolabs.ai/proxy-asset?url=https://storage.googleapis.com/tempo-public-assets/error-handling.js" />
-      <body className={inter.className}>
+      <body
+        className={
+          inter.className +
+          " overflow-x-hidden bg-gradient-to-br from-[#181C2A] via-[#232946] to-[#181C2A]"
+        }
+      >
         {children}
         <TempoInit />
       </body>

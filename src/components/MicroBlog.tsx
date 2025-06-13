@@ -163,7 +163,9 @@ const MicroBlog = () => {
   const nextSlide = () => {
     setIsAutoPlaying(false);
     if (visibleTips === 1) {
-      setCurrentIndex((prev) => (prev >= insightTips.length - 1 ? 0 : prev + 1));
+      setCurrentIndex((prev) =>
+        prev >= insightTips.length - 1 ? 0 : prev + 1
+      );
     } else {
       setCurrentIndex((prev) => (prev >= paddedMaxIndex ? 0 : prev + 1));
     }
@@ -172,7 +174,9 @@ const MicroBlog = () => {
   const prevSlide = () => {
     setIsAutoPlaying(false);
     if (visibleTips === 1) {
-      setCurrentIndex((prev) => (prev <= 0 ? insightTips.length - 1 : prev - 1));
+      setCurrentIndex((prev) =>
+        prev <= 0 ? insightTips.length - 1 : prev - 1
+      );
     } else {
       setCurrentIndex((prev) => (prev <= 0 ? paddedMaxIndex : prev - 1));
     }
@@ -194,43 +198,48 @@ const MicroBlog = () => {
   };
 
   return (
-    <section className="py-20 bg-white overflow-x-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-24 px-6 sm:px-8 lg:px-12">
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Gradient/Blur overlays for depth */}
+        <div className="absolute inset-0 pointer-events-none z-0">
+          <div className="absolute -top-24 -left-24 w-96 h-96 bg-gradient-to-br from-blue-700/30 to-purple-500/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-tr from-blue-700/30 to-purple-500/20 rounded-full blur-3xl" />
+        </div>
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-14 relative z-10"
         >
-          <h2 className="text-4xl font-bold text-obsidian-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight leading-snug text-white drop-shadow-lg font-inter mb-4">
             Digital{" "}
-            <span className="bg-gradient-to-r from-gold-500 to-gold-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
               Insights
             </span>
           </h2>
-          <p className="text-xl text-obsidian-600 max-w-3xl mx-auto">
+          <p className="text-lg md:text-xl text-white/80 max-w-3xl mx-auto font-manrope drop-shadow-md">
             Quick tips and insights to boost your website's performance and user
             experience.
           </p>
         </motion.div>
 
-        <div className="relative overflow-x-hidden">
+        <div className="relative overflow-x-hidden z-10">
           {/* Navigation Buttons */}
           <div className="flex justify-between items-center mb-6">
             <Button
               variant="outline"
               size="sm"
               onClick={prevSlide}
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 rounded-xl bg-white/10 border-white/20 text-white hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none"
+              aria-label="Previous Insights"
             >
               <ChevronLeft className="w-4 h-4" />
               Previous
             </Button>
 
             <div className="flex items-center gap-2">
-              <div className="text-sm text-obsidian-600">
-                {/* Progress indicator: show current section of total */}
+              <div className="text-sm text-white/80 font-manrope">
                 {visibleTips === 1
                   ? `${currentIndex + 1} of ${paddedTips.length}`
                   : `${currentIndex + 1} - ${Math.min(currentIndex + visibleTips, paddedTips.length)} of ${paddedTips.length}`}
@@ -239,7 +248,8 @@ const MicroBlog = () => {
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-                className="text-xs"
+                className="text-xs text-white/80 hover:bg-white/10 rounded-xl focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none"
+                aria-label={isAutoPlaying ? "Pause autoplay" : "Play autoplay"}
               >
                 {isAutoPlaying ? "Pause" : "Play"}
               </Button>
@@ -249,7 +259,8 @@ const MicroBlog = () => {
               variant="outline"
               size="sm"
               onClick={nextSlide}
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 rounded-xl bg-white/10 border-white/20 text-white hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none"
+              aria-label="Next Insights"
             >
               Next
               <ChevronRight className="w-4 h-4" />
@@ -259,69 +270,80 @@ const MicroBlog = () => {
           {/* Tips Carousel */}
           <div className="overflow-x-hidden w-full">
             <div
-              className={`flex transition-transform duration-500 ease-in-out ${visibleTips === 1 ? '' : 'gap-6'}`}
-              style={visibleTips === 1
-                ? {
-                    width: `${insightTips.length * 100}vw`,
-                    transform: `translateX(-${currentIndex * 100}vw)`
-                  }
-                : {
-                    width: `${(paddedTips.length / visibleTips) * 100}%`,
-                    transform: `translateX(-${currentIndex * (100 / paddedTips.length)}%)`
-                  }
+              className={`flex transition-transform duration-500 ease-in-out ${visibleTips === 1 ? "" : "gap-6"}`}
+              style={
+                visibleTips === 1
+                  ? {
+                      width: `${insightTips.length * 100}vw`,
+                      transform: `translateX(-${currentIndex * 100}vw)`,
+                    }
+                  : {
+                      width: `${(paddedTips.length / visibleTips) * 100}%`,
+                      transform: `translateX(-${currentIndex * (100 / paddedTips.length)}%)`,
+                    }
               }
             >
-              {(visibleTips === 1 ? insightTips : paddedTips).map((tip, index) => {
-                const IconComponent = tip.icon;
-                return (
-                  <div
-                    key={tip.id}
-                    className={`flex-shrink-0 ${visibleTips === 1 ? 'mx-auto' : ''}`}
-                    style={visibleTips === 1
-                      ? { width: '100vw', maxWidth: '20rem' }
-                      : { width: `${100 / paddedTips.length}%` }
-                    }
-                  >
-                    {tip.isPlaceholder && visibleTips !== 1 ? (
-                      <div className="h-full" />
-                    ) : (
-                      <Card className={`h-full shadow-lg border border-platinum-200 bg-white hover:shadow-xl transition-all duration-300 mx-auto w-full max-w-xs`}>
-                        <CardContent className="p-6">
-                          <div className="flex items-start gap-4 mb-4">
-                            <div
-                              className={`p-3 rounded-lg bg-gradient-to-r ${tip.color} text-white flex-shrink-0`}
-                            >
-                              <IconComponent className="w-6 h-6" />
-                            </div>
-                            <div className="flex-1">
-                              <div className="flex items-center gap-2 mb-2">
-                                <h3 className="text-lg font-semibold text-obsidian-900">
-                                  {tip.title}
-                                </h3>
-                                <span
-                                  className={`px-2 py-1 rounded-full text-xs font-medium ${getCategoryColor(
-                                    tip.category,
-                                  )}`}
-                                >
-                                  {tip.category}
-                                </span>
+              {(visibleTips === 1 ? insightTips : paddedTips).map(
+                (tip, index) => {
+                  const IconComponent = tip.icon;
+                  return (
+                    <motion.div
+                      key={tip.id}
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{
+                        duration: 0.6,
+                        ease: "easeOut",
+                        delay: 0.1 * index,
+                      }}
+                      className={`flex-shrink-0 ${visibleTips === 1 ? "mx-auto" : ""}`}
+                      style={
+                        visibleTips === 1
+                          ? { width: "100vw", maxWidth: "20rem" }
+                          : { width: `${100 / paddedTips.length}%` }
+                      }
+                    >
+                      {tip.isPlaceholder && visibleTips !== 1 ? (
+                        <div className="h-full" />
+                      ) : (
+                        <Card
+                          className={`h-full border-none bg-white/10 backdrop-blur-lg shadow-xl rounded-2xl transition-all duration-300 mx-auto w-full max-w-xs group relative z-10`}
+                        >
+                          <CardContent className="p-6">
+                            <div className="flex items-start gap-4 mb-4">
+                              <div
+                                className={`p-3 rounded-xl bg-gradient-to-r ${tip.color} text-white flex-shrink-0 shadow-lg group-hover:scale-105 transition-transform duration-300`}
+                              >
+                                <IconComponent className="w-6 h-6 drop-shadow" />
+                              </div>
+                              <div className="flex-1">
+                                <div className="flex items-center gap-2 mb-2">
+                                  <h3 className="text-lg font-semibold text-white font-manrope drop-shadow">
+                                    {tip.title}
+                                  </h3>
+                                  <span
+                                    className={`px-2 py-1 rounded-full text-xs font-medium bg-white/10 text-white/80 font-inter`}
+                                  >
+                                    {tip.category}
+                                  </span>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                          <p className="text-obsidian-600 leading-relaxed">
-                            {tip.content}
-                          </p>
-                        </CardContent>
-                      </Card>
-                    )}
-                  </div>
-                );
-              })}
+                            <p className="text-white/80 leading-relaxed font-inter drop-shadow-sm">
+                              {tip.content}
+                            </p>
+                          </CardContent>
+                        </Card>
+                      )}
+                    </motion.div>
+                  );
+                }
+              )}
             </div>
           </div>
 
           {/* Progress Indicators */}
-          <div className="flex justify-center mt-6 gap-2">
+          <div className="flex justify-center mt-6 gap-2 z-10 relative">
             {Array.from({ length: paddedTotalSections }).map((_, index) => (
               <button
                 key={index}
@@ -329,11 +351,12 @@ const MicroBlog = () => {
                   setCurrentIndex(index * visibleTips);
                   setIsAutoPlaying(false);
                 }}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                className={`w-2 h-2 rounded-full transition-all duration-300 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none ${
                   Math.floor(currentIndex / visibleTips) === index
-                    ? "bg-obsidian-800 w-8"
-                    : "bg-platinum-300 hover:bg-platinum-400"
+                    ? "bg-white w-8"
+                    : "bg-white/30 hover:bg-white/50"
                 }`}
+                aria-label={`Go to insights section ${index + 1}`}
               />
             ))}
           </div>
@@ -344,12 +367,12 @@ const MicroBlog = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
-          className="text-center mt-12"
+          className="text-center mt-12 relative z-10"
         >
-          <p className="text-obsidian-600 mb-4">
+          <p className="text-white/80 mb-4 font-manrope">
             Want personalized insights for your website?
           </p>
-          <Button className="bg-gradient-to-r from-obsidian-800 to-obsidian-900 hover:from-obsidian-900 hover:to-obsidian-800 text-white px-8 py-3">
+          <Button className="bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-3 rounded-xl font-bold shadow-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none font-inter">
             Get Custom Analysis
           </Button>
         </motion.div>
