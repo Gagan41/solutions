@@ -16,6 +16,9 @@ import { Slider } from "@/components/ui/slider";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
+// Add custom styles for the slider thumb
+const sliderStyles = "w-full [&>span]:bg-white [&>div]:bg-slate-200 [&>div]:h-1";
+
 interface ROIData {
   monthlyTraffic: number;
   conversionRate: number;
@@ -130,7 +133,7 @@ const ROICalculator = () => {
                       max={50000}
                       min={1000}
                       step={500}
-                      className="w-full"
+                      className={sliderStyles}
                     />
                     <div className="flex justify-between text-sm text-obsidian-500 mt-1">
                       <span>1K</span>
@@ -153,7 +156,7 @@ const ROICalculator = () => {
                       max={10}
                       min={0.5}
                       step={0.1}
-                      className="w-full"
+                      className={sliderStyles}
                     />
                     <div className="flex justify-between text-sm text-obsidian-500 mt-1">
                       <span>0.5%</span>
@@ -176,7 +179,7 @@ const ROICalculator = () => {
                       max={1000}
                       min={25}
                       step={25}
-                      className="w-full"
+                      className={sliderStyles}
                     />
                     <div className="flex justify-between text-sm text-obsidian-500 mt-1">
                       <span>$25</span>
@@ -216,9 +219,9 @@ const ROICalculator = () => {
               <CardContent>
                 {showResults ? (
                   <Tabs defaultValue="monthly" className="w-full">
-                    <TabsList className="grid w-full grid-cols-2">
-                      <TabsTrigger value="monthly">Monthly</TabsTrigger>
-                      <TabsTrigger value="yearly">Yearly</TabsTrigger>
+                    <TabsList className="grid w-full grid-cols-2 bg-[rgb(100,214,69)]/10">
+                      <TabsTrigger value="monthly" className="data-[state=active]:bg-[rgb(100,214,69)] data-[state=active]:text-white">Monthly</TabsTrigger>
+                      <TabsTrigger value="yearly" className="data-[state=active]:bg-[rgb(100,214,69)] data-[state=active]:text-white">Yearly</TabsTrigger>
                     </TabsList>
 
                     <TabsContent value="monthly" className="space-y-4 mt-6">

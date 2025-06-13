@@ -15,7 +15,7 @@ const HeroSection = () => {
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-platinum-50 via-white to-obsidian-50 pt-16"
+      className="min-h-screen flex items-center justify-center pt-16 hero-gradient-bg"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center">
@@ -23,20 +23,20 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-bold text-obsidian-900 mb-6"
+            className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6"
           >
-            <span className="bg-gradient-to-r from-obsidian-700 to-obsidian-900 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-obsidian-700 to-obsidian-900 bg-clip-text text-white">
               Digital Excellence
             </span>
             <br />
-            <span className="text-obsidian-800">Delivered</span>
+            <span className="text-white">Delivered</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-xl md:text-2xl text-obsidian-600 mb-8 max-w-3xl mx-auto leading-relaxed"
+            className="text-xl md:text-2xl text-white mb-8 max-w-3xl mx-auto leading-relaxed"
           >
             Transform your business with cutting-edge web development, strategic
             digital marketing, and powerful SEO solutions.
@@ -68,7 +68,7 @@ const HeroSection = () => {
                   .getElementById("services")
                   ?.scrollIntoView({ behavior: "smooth" })
               }
-              className="text-obsidian-700 hover:text-obsidian-800 font-semibold text-lg transition-colors duration-200 flex items-center gap-2"
+              className="text-white hover:text-white font-semibold text-lg transition-colors duration-200 flex items-center gap-2"
             >
               View Our Services
               <ArrowRight size={18} />

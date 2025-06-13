@@ -22,11 +22,23 @@ interface InsightTip {
   content: string;
   category: "SEO" | "UI/UX" | "Marketing" | "Performance";
   color: string;
+  isPlaceholder?: boolean;
 }
 
 const MicroBlog = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [visibleTips, setVisibleTips] = useState(3);
+
+  // Responsive: 1 per section on mobile, 3 on desktop
+  useEffect(() => {
+    const handleResize = () => {
+      setVisibleTips(window.innerWidth < 768 ? 1 : 3);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const insightTips: InsightTip[] = [
     {
@@ -121,27 +133,49 @@ const MicroBlog = () => {
     },
   ];
 
-  const visibleTips = 3;
-  const maxIndex = Math.max(0, insightTips.length - visibleTips);
+  // Pad the tips array to always fill the last row
+  const paddedTips = [...insightTips];
+  const remainder = insightTips.length % visibleTips;
+  if (remainder !== 0) {
+    for (let i = 0; i < visibleTips - remainder; i++) {
+      paddedTips.push({
+        id: 1000 + i, // unique id for placeholder
+        icon: () => null,
+        title: "",
+        content: "",
+        category: "SEO",
+        color: "",
+        isPlaceholder: true,
+      } as any);
+    }
+  }
+  const paddedMaxIndex = Math.max(0, paddedTips.length - visibleTips);
+  const paddedTotalSections = Math.ceil(paddedTips.length / visibleTips);
 
   useEffect(() => {
     if (!isAutoPlaying) return;
-
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+      setCurrentIndex((prev) => (prev >= paddedMaxIndex ? 0 : prev + 1));
     }, 4000);
-
     return () => clearInterval(interval);
-  }, [isAutoPlaying, maxIndex]);
+  }, [isAutoPlaying, paddedMaxIndex]);
 
   const nextSlide = () => {
     setIsAutoPlaying(false);
-    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+    if (visibleTips === 1) {
+      setCurrentIndex((prev) => (prev >= insightTips.length - 1 ? 0 : prev + 1));
+    } else {
+      setCurrentIndex((prev) => (prev >= paddedMaxIndex ? 0 : prev + 1));
+    }
   };
 
   const prevSlide = () => {
     setIsAutoPlaying(false);
-    setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
+    if (visibleTips === 1) {
+      setCurrentIndex((prev) => (prev <= 0 ? insightTips.length - 1 : prev - 1));
+    } else {
+      setCurrentIndex((prev) => (prev <= 0 ? paddedMaxIndex : prev - 1));
+    }
   };
 
   const getCategoryColor = (category: string) => {
@@ -160,7 +194,7 @@ const MicroBlog = () => {
   };
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-white overflow-x-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -181,7 +215,7 @@ const MicroBlog = () => {
           </p>
         </motion.div>
 
-        <div className="relative">
+        <div className="relative overflow-x-hidden">
           {/* Navigation Buttons */}
           <div className="flex justify-between items-center mb-6">
             <Button
@@ -196,9 +230,10 @@ const MicroBlog = () => {
 
             <div className="flex items-center gap-2">
               <div className="text-sm text-obsidian-600">
-                {currentIndex + 1} -{" "}
-                {Math.min(currentIndex + visibleTips, insightTips.length)} of{" "}
-                {insightTips.length}
+                {/* Progress indicator: show current section of total */}
+                {visibleTips === 1
+                  ? `${currentIndex + 1} of ${paddedTips.length}`
+                  : `${currentIndex + 1} - ${Math.min(currentIndex + visibleTips, paddedTips.length)} of ${paddedTips.length}`}
               </div>
               <Button
                 variant="ghost"
@@ -222,69 +257,80 @@ const MicroBlog = () => {
           </div>
 
           {/* Tips Carousel */}
-          <div className="overflow-hidden">
-            <motion.div
-              className="flex gap-6"
-              animate={{ x: -currentIndex * (100 / visibleTips) + "%" }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
-              style={{ width: `${(insightTips.length / visibleTips) * 100}%` }}
+          <div className="overflow-x-hidden w-full">
+            <div
+              className={`flex transition-transform duration-500 ease-in-out ${visibleTips === 1 ? '' : 'gap-6'}`}
+              style={visibleTips === 1
+                ? {
+                    width: `${insightTips.length * 100}vw`,
+                    transform: `translateX(-${currentIndex * 100}vw)`
+                  }
+                : {
+                    width: `${(paddedTips.length / visibleTips) * 100}%`,
+                    transform: `translateX(-${currentIndex * (100 / paddedTips.length)}%)`
+                  }
+              }
             >
-              {insightTips.map((tip, index) => {
+              {(visibleTips === 1 ? insightTips : paddedTips).map((tip, index) => {
                 const IconComponent = tip.icon;
                 return (
-                  <motion.div
+                  <div
                     key={tip.id}
-                    className="flex-shrink-0"
-                    style={{ width: `${100 / insightTips.length}%` }}
-                    whileHover={{ scale: 1.02 }}
-                    onHoverStart={() => setIsAutoPlaying(false)}
-                    onHoverEnd={() => setIsAutoPlaying(true)}
+                    className={`flex-shrink-0 ${visibleTips === 1 ? 'mx-auto' : ''}`}
+                    style={visibleTips === 1
+                      ? { width: '100vw', maxWidth: '20rem' }
+                      : { width: `${100 / paddedTips.length}%` }
+                    }
                   >
-                    <Card className="h-full shadow-lg border border-platinum-200 bg-white hover:shadow-xl transition-all duration-300">
-                      <CardContent className="p-6">
-                        <div className="flex items-start gap-4 mb-4">
-                          <div
-                            className={`p-3 rounded-lg bg-gradient-to-r ${tip.color} text-white flex-shrink-0`}
-                          >
-                            <IconComponent className="w-6 h-6" />
-                          </div>
-                          <div className="flex-1">
-                            <div className="flex items-center gap-2 mb-2">
-                              <h3 className="text-lg font-semibold text-obsidian-900">
-                                {tip.title}
-                              </h3>
-                              <span
-                                className={`px-2 py-1 rounded-full text-xs font-medium ${getCategoryColor(
-                                  tip.category,
-                                )}`}
-                              >
-                                {tip.category}
-                              </span>
+                    {tip.isPlaceholder && visibleTips !== 1 ? (
+                      <div className="h-full" />
+                    ) : (
+                      <Card className={`h-full shadow-lg border border-platinum-200 bg-white hover:shadow-xl transition-all duration-300 mx-auto w-full max-w-xs`}>
+                        <CardContent className="p-6">
+                          <div className="flex items-start gap-4 mb-4">
+                            <div
+                              className={`p-3 rounded-lg bg-gradient-to-r ${tip.color} text-white flex-shrink-0`}
+                            >
+                              <IconComponent className="w-6 h-6" />
+                            </div>
+                            <div className="flex-1">
+                              <div className="flex items-center gap-2 mb-2">
+                                <h3 className="text-lg font-semibold text-obsidian-900">
+                                  {tip.title}
+                                </h3>
+                                <span
+                                  className={`px-2 py-1 rounded-full text-xs font-medium ${getCategoryColor(
+                                    tip.category,
+                                  )}`}
+                                >
+                                  {tip.category}
+                                </span>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <p className="text-obsidian-600 leading-relaxed">
-                          {tip.content}
-                        </p>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
+                          <p className="text-obsidian-600 leading-relaxed">
+                            {tip.content}
+                          </p>
+                        </CardContent>
+                      </Card>
+                    )}
+                  </div>
                 );
               })}
-            </motion.div>
+            </div>
           </div>
 
           {/* Progress Indicators */}
           <div className="flex justify-center mt-6 gap-2">
-            {Array.from({ length: maxIndex + 1 }).map((_, index) => (
+            {Array.from({ length: paddedTotalSections }).map((_, index) => (
               <button
                 key={index}
                 onClick={() => {
-                  setCurrentIndex(index);
+                  setCurrentIndex(index * visibleTips);
                   setIsAutoPlaying(false);
                 }}
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  index === currentIndex
+                  Math.floor(currentIndex / visibleTips) === index
                     ? "bg-obsidian-800 w-8"
                     : "bg-platinum-300 hover:bg-platinum-400"
                 }`}

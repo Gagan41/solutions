@@ -34,7 +34,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer id="contact" className="bg-obsidian-900 text-white">
+    <footer id="contact" className="bg-gray-50 text-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
@@ -44,10 +44,10 @@ const Footer = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-2xl font-bold bg-gradient-to-r from-gold-400 to-platinum-300 bg-clip-text text-transparent mb-4">
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">
               Courtinex
             </h3>
-            <p className="text-platinum-300 mb-6 leading-relaxed">
+            <p className="text-gray-600 mb-6 leading-relaxed">
               Your trusted partner for digital transformation. We create
               exceptional web experiences and drive business growth through
               innovative digital solutions.
@@ -61,10 +61,10 @@ const Footer = () => {
                     href={social.href}
                     whileHover={{ scale: 1.2, y: -2 }}
                     whileTap={{ scale: 0.9 }}
-                    className="w-10 h-10 bg-obsidian-800 rounded-full flex items-center justify-center hover:bg-gold-600 transition-colors duration-300"
+                    className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors duration-300"
                     aria-label={social.label}
                   >
-                    <IconComponent size={18} />
+                    <IconComponent size={18} className="text-gray-600" />
                   </motion.a>
                 );
               })}
@@ -78,13 +78,13 @@ const Footer = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
           >
-            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+            <h4 className="text-lg font-semibold text-gray-900 mb-4">Quick Links</h4>
             <ul className="space-y-2">
               {quickLinks.map((link, index) => (
                 <li key={index}>
                   <a
                     href={link.href}
-                    className="text-platinum-300 hover:text-gold-400 transition-colors duration-200 flex items-center gap-2"
+                    className="text-gray-600 hover:text-gray-900 transition-colors duration-200 flex items-center gap-2"
                   >
                     {link.name}
                   </a>
@@ -100,10 +100,10 @@ const Footer = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <h4 className="text-lg font-semibold mb-4">Services</h4>
+            <h4 className="text-lg font-semibold text-gray-900 mb-4">Services</h4>
             <ul className="space-y-2">
               {services.map((service, index) => (
-                <li key={index} className="text-platinum-300">
+                <li key={index} className="text-gray-600">
                   {service}
                 </li>
               ))}
@@ -117,18 +117,18 @@ const Footer = () => {
             transition={{ duration: 0.6, delay: 0.3 }}
             viewport={{ once: true }}
           >
-            <h4 className="text-lg font-semibold mb-4">Contact Us</h4>
+            <h4 className="text-lg font-semibold text-gray-900 mb-4">Contact Us</h4>
             <div className="space-y-3">
-              <div className="flex items-center gap-3 text-platinum-300">
-                <Mail size={18} className="text-gold-400" />
+              <div className="flex items-center gap-3 text-gray-600">
+                <Mail size={18} className="text-gray-400" />
                 <span>hello@courtinex.com</span>
               </div>
-              <div className="flex items-center gap-3 text-platinum-300">
-                <Phone size={18} className="text-gold-400" />
+              <div className="flex items-center gap-3 text-gray-600">
+                <Phone size={18} className="text-gray-400" />
                 <span>+1 (555) 123-4567</span>
               </div>
-              <div className="flex items-center gap-3 text-platinum-300">
-                <MapPin size={18} className="text-gold-400" />
+              <div className="flex items-center gap-3 text-gray-600">
+                <MapPin size={18} className="text-gray-400" />
                 <span>New York, NY 10001</span>
               </div>
             </div>
@@ -141,9 +141,9 @@ const Footer = () => {
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.4 }}
           viewport={{ once: true }}
-          className="border-t border-obsidian-800 mt-12 pt-8 text-center"
+          className="border-t border-gray-200 mt-12 pt-8 text-center"
         >
-          <p className="text-platinum-400">
+          <p className="text-gray-500">
             © 2024 Courtinex Webstudio. All rights reserved. Built with passion
             for digital excellence.
           </p>
