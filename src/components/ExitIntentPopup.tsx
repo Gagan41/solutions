@@ -77,16 +77,20 @@ const ExitIntentPopup = () => {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="sm:max-w-md border-0 p-0 bg-transparent shadow-none">
+      <DialogContent 
+        className="sm:max-w-md border-0 p-0 shadow-none !bg-white" 
+        style={{ backgroundColor: '#ffffff !important' }}
+      >
         <motion.div
           initial={{ scale: 0.8, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.8, opacity: 0, y: 20 }}
           transition={{ type: "spring", duration: 0.5 }}
-          className="bg-white rounded-2xl shadow-2xl border border-platinum-200 overflow-hidden"
+          style={{ backgroundColor: '#ffffff !important' }}
+          className="rounded-2xl shadow-2xl border border-gray-200 overflow-hidden !bg-white"
         >
           {/* Header with gradient */}
-          <div className="bg-gradient-to-r from-slate-700 to-slate-800 p-6 text-white relative">
+          <div className="bg-gradient-to-r from-gray-700 to-gray-800 p-6 text-white relative">
             <button
               onClick={() => setIsOpen(false)}
               className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors"
@@ -96,7 +100,7 @@ const ExitIntentPopup = () => {
 
             <div className="flex items-center gap-3 mb-2">
               <div className="p-2 bg-white/10 rounded-lg">
-                <Gift className="w-6 h-6" />
+                <Gift className="w-6 h-6 text-white" />
               </div>
               <div>
                 <DialogTitle className="text-xl font-bold text-white">
@@ -105,18 +109,21 @@ const ExitIntentPopup = () => {
               </div>
             </div>
 
-            <p className="text-slate-200">
+            <p className="text-gray-200">
               Get a free website audit before you go!
             </p>
           </div>
 
           {/* Content */}
-          <div className="p-6">
+          <div 
+            className="p-6 !bg-white" 
+            style={{ backgroundColor: '#ffffff !important' }}
+          >
             <div className="text-center mb-6">
-              <h3 className="text-lg font-semibold text-slate-800 mb-2">
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">
                 Discover What's Holding Your Website Back
               </h3>
-              <p className="text-slate-600">
+              <p className="text-gray-600">
                 Get a comprehensive analysis of your site's SEO, performance,
                 and user experience - completely free!
               </p>
@@ -137,8 +144,8 @@ const ExitIntentPopup = () => {
                   transition={{ delay: index * 0.1 + 0.3 }}
                   className="flex items-center gap-3"
                 >
-                  <div className="w-2 h-2 bg-slate-500 rounded-full" />
-                  <span className="text-slate-700">{benefit}</span>
+                  <div className="w-2 h-2 bg-gray-500 rounded-full" />
+                  <span className="text-gray-700">{benefit}</span>
                 </motion.div>
               ))}
             </div>
@@ -151,7 +158,7 @@ const ExitIntentPopup = () => {
               >
                 <Button
                   onClick={handleAuditClick}
-                  className="w-full bg-gradient-to-r from-slate-700 to-slate-800 hover:from-slate-800 hover:to-slate-700 text-white h-12 text-lg font-semibold flex items-center gap-2"
+                  className="w-full bg-gray-700 hover:bg-gray-800 text-white h-12 text-lg font-semibold flex items-center gap-2"
                 >
                   <Search className="w-5 h-5" />
                   Get Free Audit Now
@@ -160,10 +167,10 @@ const ExitIntentPopup = () => {
 
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t border-slate-600" />
+                  <span className="w-full border-t border-gray-300" />
                 </div>
                 <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-white px-2 text-slate-500">or</span>
+                  <span className="bg-white px-2 text-gray-500">or</span>
                 </div>
               </div>
 
@@ -174,7 +181,7 @@ const ExitIntentPopup = () => {
                 <Button
                   onClick={handleWhatsAppClick}
                   variant="outline"
-                  className="w-full border-slate-600 text-slate-600 hover:bg-slate-600 hover:text-white h-12 flex items-center gap-2"
+                  className="w-full border-gray-300 text-gray-600 hover:bg-gray-600 hover:text-white h-12 flex items-center gap-2"
                 >
                   <MessageSquare className="w-5 h-5" />
                   Chat on WhatsApp
@@ -183,18 +190,18 @@ const ExitIntentPopup = () => {
             </div>
 
             {/* Trust indicators */}
-            <div className="mt-6 pt-4 border-t border-platinum-200">
-              <div className="flex items-center justify-center gap-4 text-sm text-slate-500">
+            <div className="mt-6 pt-4 border-t border-gray-200">
+              <div className="flex items-center justify-center gap-4 text-sm text-gray-500">
                 <div className="flex items-center gap-1">
-                  <div className="w-2 h-2 bg-slate-500 rounded-full" />
+                  <div className="w-2 h-2 bg-gray-500 rounded-full" />
                   <span>100% Free</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <div className="w-2 h-2 bg-slate-500 rounded-full" />
+                  <div className="w-2 h-2 bg-gray-500 rounded-full" />
                   <span>No Spam</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <div className="w-2 h-2 bg-slate-500 rounded-full" />
+                  <div className="w-2 h-2 bg-gray-500 rounded-full" />
                   <span>Instant Results</span>
                 </div>
               </div>
