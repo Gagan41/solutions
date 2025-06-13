@@ -63,7 +63,25 @@
   * {
     @apply border-border;
   }
-  body {
+  body, html {
     @apply bg-background text-foreground;
+    background: #fff !important;
   }
+}
+
+[data-state="open"].fixed.inset-0.z-50 {
+  background: none !important;
+}
+
+[role="slider"].rounded-full {
+  background: rgb(203, 208, 214) !important;
+  border-color: rgb(203, 208, 214) !important;
+}
+
+[data-orientation="horizontal"].bg-primary {
+  background: rgb(23, 164, 235) !important;
+}
+
+.hero-gradient-bg {
+  background: radial-gradient(ellipse at top, #a259f7 0%, #1a1446 60%, #05021a 100%);
 }
