@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import GlareHover from "./ui/GlareHover"
 
 const ServicesSection = () => {
   const services = [
@@ -107,58 +108,178 @@ const ServicesSection = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 lg:gap-12 px-4 md:px-0"
         >
           {services.map((service, index) => {
             const IconComponent = service.icon;
             return (
               <motion.div
                 key={index}
-                variants={itemVariants}
-                className="relative"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+                className="relative flex justify-center items-center"
               >
-                {/* Glassmorphic Card */}
-                <Card className="h-full group border-none bg-white/10 backdrop-blur-lg shadow-2xl rounded-3xl transition-all duration-300 hover:shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] hover:bg-white/20 ring-1 ring-white/10">
-                  <CardHeader className="text-center pb-4">
-                    <motion.div
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      className="mx-auto mb-4 p-4 bg-gradient-to-br from-blue-700/80 to-purple-700/80 rounded-2xl w-16 h-16 flex items-center justify-center shadow-lg"
-                    >
-                      <IconComponent className="w-8 h-8 text-white drop-shadow-md" />
-                    </motion.div>
-                    <CardTitle className="text-2xl font-bold text-white group-hover:text-blue-200 transition-colors font-manrope drop-shadow">
-                      {service.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="text-center">
-                    <CardDescription className="text-white/80 mb-6 text-base leading-relaxed font-inter">
-                      {service.description}
-                    </CardDescription>
-                    <ul className="space-y-2 mb-6">
-                      {service.features.map((feature, featureIndex) => (
-                        <li
-                          key={featureIndex}
-                          className="text-sm text-white/90 flex items-center justify-center gap-2 font-manrope"
+                {index === 0 ? (
+                  <GlareHover
+                    glareColor="#ffffff"
+                    glareOpacity={0.4}
+                    glareAngle={-45}
+                    glareSize={250}
+                    transitionDuration={600}
+                    playOnce={false}
+                    className="h-full w-full max-w-[320px] md:max-w-none"
+                    style={{ background: 'transparent', border: 'none' }}
+                  >
+                    <Card className="h-full w-full group border-none bg-white/10 backdrop-blur-lg shadow-2xl rounded-3xl transition-all duration-300 hover:shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] hover:bg-white/20 ring-1 ring-white/10">
+                      <CardHeader className="text-center pb-4">
+                        <motion.div
+                          whileHover={{ scale: 1.1, rotate: 5 }}
+                          className="mx-auto mb-4 p-4 bg-gradient-to-br from-blue-700/80 to-purple-700/80 rounded-2xl w-16 h-16 flex items-center justify-center shadow-lg"
                         >
-                          <div className="w-1.5 h-1.5 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full"></div>
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="flex justify-center">
-                      <Button
-                        variant="outline"
-                        className="group-hover:bg-gradient-to-r group-hover:from-blue-700 group-hover:to-purple-700 group-hover:text-white group-hover:border-transparent transition-all duration-300 flex items-center gap-2 border-white/20 bg-white/10 text-white/90 font-inter rounded-full shadow-md backdrop-blur-md"
-                      >
-                        Learn More
-                        <ArrowRight
-                          size={16}
-                          className="group-hover:translate-x-1 transition-transform"
-                        />
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
+                          <IconComponent className="w-8 h-8 text-white drop-shadow-md" />
+                        </motion.div>
+                        <CardTitle className="text-2xl font-bold text-white group-hover:text-blue-200 transition-colors font-manrope drop-shadow">
+                          {service.title}
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="text-center">
+                        <CardDescription className="text-white/80 mb-6 text-base leading-relaxed font-inter">
+                          {service.description}
+                        </CardDescription>
+                        <ul className="space-y-2 mb-6">
+                          {service.features.map((feature, featureIndex) => (
+                            <li
+                              key={featureIndex}
+                              className="text-sm text-white/90 flex items-center justify-center gap-2 font-manrope"
+                            >
+                              <div className="w-1.5 h-1.5 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full"></div>
+                              {feature}
+                            </li>
+                          ))}
+                        </ul>
+                        <div className="flex justify-center">
+                          <Button
+                            variant="outline"
+                            className="group-hover:bg-gradient-to-r group-hover:from-blue-700 group-hover:to-purple-700 group-hover:text-white group-hover:border-transparent transition-all duration-300 flex items-center gap-2 border-white/20 bg-white/10 text-white/90 font-inter rounded-full shadow-md backdrop-blur-md"
+                          >
+                            Learn More
+                            <ArrowRight
+                              size={16}
+                              className="group-hover:translate-x-1 transition-transform"
+                            />
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </GlareHover>
+                ) : index === 1 ? (
+                  <GlareHover
+                    glareColor="#ffffff"
+                    glareOpacity={0.4}
+                    glareAngle={-45}
+                    glareSize={250}
+                    transitionDuration={600}
+                    playOnce={false}
+                    className="h-full w-full max-w-[320px] md:max-w-none"
+                    style={{ background: 'transparent', border: 'none' }}
+                  >
+                    <Card className="h-full full group border-none bg-white/10 backdrop-blur-lg shadow-2xl rounded-3xl transition-all duration-300 hover:shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] hover:bg-white/20 ring-1 ring-white/10">
+                      <CardHeader className="text-center pb-4">
+                        <motion.div
+                          whileHover={{ scale: 1.1, rotate: 5 }}
+                          className="mx-auto mb-4 p-4 bg-gradient-to-br from-blue-700/80 to-purple-700/80 rounded-2xl w-16 h-16 flex items-center justify-center shadow-lg"
+                        >
+                          <IconComponent className="w-8 h-8 text-white drop-shadow-md" />
+                        </motion.div>
+                        <CardTitle className="text-2xl font-bold text-white group-hover:text-blue-200 transition-colors font-manrope drop-shadow">
+                          {service.title}
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="text-center">
+                        <CardDescription className="text-white/80 mb-6 text-base leading-relaxed font-inter">
+                          {service.description}
+                        </CardDescription>
+                        <ul className="space-y-2 mb-6">
+                          {service.features.map((feature, featureIndex) => (
+                            <li
+                              key={featureIndex}
+                              className="text-sm text-white/90 flex items-center justify-center gap-2 font-manrope"
+                            >
+                              <div className="w-1.5 h-1.5 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full"></div>
+                              {feature}
+                            </li>
+                          ))}
+                        </ul>
+                        <div className="flex justify-center">
+                          <Button
+                            variant="outline"
+                            className="group-hover:bg-gradient-to-r group-hover:from-blue-700 group-hover:to-purple-700 group-hover:text-white group-hover:border-transparent transition-all duration-300 flex items-center gap-2 border-white/20 bg-white/10 text-white/90 font-inter rounded-full shadow-md backdrop-blur-md"
+                          >
+                            Learn More
+                            <ArrowRight
+                              size={16}
+                              className="group-hover:translate-x-1 transition-transform"
+                            />
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </GlareHover>
+                ) : (
+                  <GlareHover
+                    glareColor="#ffffff"
+                    glareOpacity={0.4}
+                    glareAngle={-45}
+                    glareSize={250}
+                    transitionDuration={600}
+                    playOnce={false}
+                    className="h-full w-full max-w-[320px] md:max-w-none"
+                    style={{ background: 'transparent', border: 'none' }}
+                  >
+                    <Card className="h-full w-full group border-none bg-white/10 backdrop-blur-lg shadow-2xl rounded-3xl transition-all duration-300 hover:shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] hover:bg-white/20 ring-1 ring-white/10">
+                      <CardHeader className="text-center pb-4">
+                        <motion.div
+                          whileHover={{ scale: 1.1, rotate: 5 }}
+                          className="mx-auto mb-4 p-4 bg-gradient-to-br from-blue-700/80 to-purple-700/80 rounded-2xl w-16 h-16 flex items-center justify-center shadow-lg"
+                        >
+                          <IconComponent className="w-8 h-8 text-white drop-shadow-md" />
+                        </motion.div>
+                        <CardTitle className="text-2xl font-bold text-white group-hover:text-blue-200 transition-colors font-manrope drop-shadow">
+                          {service.title}
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="text-center">
+                        <CardDescription className="text-white/80 mb-6 text-base leading-relaxed font-inter">
+                          {service.description}
+                        </CardDescription>
+                        <ul className="space-y-2 mb-6">
+                          {service.features.map((feature, featureIndex) => (
+                            <li
+                              key={featureIndex}
+                              className="text-sm text-white/90 flex items-center justify-center gap-2 font-manrope"
+                            >
+                              <div className="w-1.5 h-1.5 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full"></div>
+                              {feature}
+                            </li>
+                          ))}
+                        </ul>
+                        <div className="flex justify-center">
+                          <Button
+                            variant="outline"
+                            className="group-hover:bg-gradient-to-r group-hover:from-blue-700 group-hover:to-purple-700 group-hover:text-white group-hover:border-transparent transition-all duration-300 flex items-center gap-2 border-white/20 bg-white/10 text-white/90 font-inter rounded-full shadow-md backdrop-blur-md"
+                          >
+                            Learn More
+                            <ArrowRight
+                              size={16}
+                              className="group-hover:translate-x-1 transition-transform"
+                            />
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </GlareHover>
+                )}
               </motion.div>
             );
           })}
