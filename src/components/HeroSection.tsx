@@ -52,7 +52,7 @@ const HeroSection = () => {
           >
             <VariableProximity
               label="Transform your business with cutting-edge web development,strategic marketing, and powerful SEO solutions."
-              className="text-2xl md:text-2xl lg:text-4xl text-white/80 max-w-4xl mx-auto leading-relaxed font-['Roboto_Flex'] whitespace-pre-line"
+              className="text-2xl md:text-2xl lg:text-4xl text-white/50 max-w-4xl mx-auto leading-relaxed font-['Roboto_Flex'] whitespace-pre-line"
               fromFontVariationSettings="'wght' 400, 'opsz' 9"
               toFontVariationSettings="'wght' 1000, 'opsz' 40"
               containerRef={containerRef}

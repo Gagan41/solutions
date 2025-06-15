@@ -15,6 +15,7 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import Magnet from "@/components/ui/Magnet";
 
 interface CaseStudy {
   id: string;
@@ -378,9 +379,13 @@ const ClientSuccessTimeline = () => {
           <p className="text-white/80 mb-6 font-manrope text-base sm:text-lg">
             Ready to become our next success story?
           </p>
-          <Button className="bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 hover:from-purple-700 hover:to-blue-700 text-white px-6 sm:px-8 py-3 text-base sm:text-lg rounded-xl font-bold shadow-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none font-inter">
-            Start Your Success Story
-          </Button>
+          <div className="flex justify-center">
+            <Magnet padding={150} disabled={false} magnetStrength={10}>
+              <Button className="bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 hover:from-purple-700 hover:to-blue-700 text-white px-6 sm:px-8 py-3 text-base sm:text-lg rounded-xl font-bold shadow-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none font-inter">
+                Start Your Success Story
+              </Button>
+            </Magnet>
+          </div>
         </motion.div>
       </div>
     </section>

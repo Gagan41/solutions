@@ -145,16 +145,18 @@ const ServicesSection = () => {
                         </li>
                       ))}
                     </ul>
-                    <Button
-                      variant="outline"
-                      className="group-hover:bg-gradient-to-r group-hover:from-blue-700 group-hover:to-purple-700 group-hover:text-white group-hover:border-transparent transition-all duration-300 flex items-center gap-2 border-white/20 bg-white/10 text-white/90 font-inter rounded-full shadow-md backdrop-blur-md"
-                    >
-                      Learn More
-                      <ArrowRight
-                        size={16}
-                        className="group-hover:translate-x-1 transition-transform"
-                      />
-                    </Button>
+                    <div className="flex justify-center">
+                      <Button
+                        variant="outline"
+                        className="group-hover:bg-gradient-to-r group-hover:from-blue-700 group-hover:to-purple-700 group-hover:text-white group-hover:border-transparent transition-all duration-300 flex items-center gap-2 border-white/20 bg-white/10 text-white/90 font-inter rounded-full shadow-md backdrop-blur-md"
+                      >
+                        Learn More
+                        <ArrowRight
+                          size={16}
+                          className="group-hover:translate-x-1 transition-transform"
+                        />
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               </motion.div>
