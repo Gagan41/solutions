@@ -154,7 +154,7 @@ const WebsiteAuditTool = () => {
                     aria-label="Website URL"
                   />
                   <Select value={auditType} onValueChange={setAuditType}>
-                    <SelectTrigger className="w-full md:w-40 bg-white/80 rounded-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none">
+                    <SelectTrigger className="w-full md:w-40 bg-white/80 rounded-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none border-white">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent className="bg-white/90 rounded-lg">
