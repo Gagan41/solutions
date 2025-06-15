@@ -3,8 +3,10 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
+import { Roboto_Flex } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
+const robotoFlex = Roboto_Flex({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Courtinex Webstudio - Digital Service Agency",
@@ -23,7 +25,8 @@ export default function RootLayout({
       <body
         className={
           inter.className +
-          " overflow-x-hidden bg-gradient-to-br from-[#181C2A] via-[#232946] to-[#181C2A]"
+          " overflow-x-hidden bg-gradient-to-br from-[#181C2A] via-[#232946] to-[#181C2A] " +
+          robotoFlex.className
         }
       >
         {children}
