@@ -71,7 +71,7 @@ const ExitIntentPopup = () => {
     const message = encodeURIComponent(
       "Hi! I was just browsing your website and I'm interested in getting a free audit for my site. Can you help?"
     );
-    window.open(`https://wa.me/1234567890?text=${message}`, "_blank");
+    window.open(`https://wa.me/916361725397?text=${message}`, "_blank");
     setIsOpen(false);
   };
 
