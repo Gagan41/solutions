@@ -12,7 +12,7 @@ const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const handleWhatsAppClick = () => {
     window.open(
-      "https://wa.me/1234567890?text=Hello! I'm interested in your digital services.",
+      "https://wa.me/916361725397?text=Hello! I'm interested in your digital services.",
       "_blank"
     );
   };

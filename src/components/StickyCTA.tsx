@@ -19,25 +19,75 @@ const StickyCTA = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [phone, setPhone] = useState("");
+  const [phoneError, setPhoneError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [buttonState, setButtonState] = useState<'default' | 'success' | 'error'>('default');
+
+  const validateEmail = (email: string) => {
+    return email.toLowerCase().endsWith('@gmail.com');
+  };
 
   const handleWhatsAppClick = () => {
     const whatsappMessage = encodeURIComponent(
       "Hi! I'm interested in your digital services. Can we discuss my project?"
     );
-    window.open(`https://wa.me/1234567890?text=${whatsappMessage}`, "_blank");
+    window.open(`https://wa.me/916361725397?text=${whatsappMessage}`, "_blank");
     setIsOpen(false);
   };
 
-  const handleCallbackSubmit = (e: React.FormEvent) => {
+  const handleCallbackSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically send the data to your backend
-    console.log("Callback request:", { name, email, phone, message });
-    alert("Thank you! We'll call you back within 24 hours.");
-    setName("");
-    setEmail("");
-    setPhone("");
-    setMessage("");
-    setIsOpen(false);
+    
+    // Validate phone number
+    if (phone.length !== 10) {
+      setPhoneError("Please enter a valid 10-digit phone number");
+      return;
+    }
+    setPhoneError("");
+
+    // Validate email
+    if (!validateEmail(email)) {
+      setEmailError("Please enter a valid Gmail address");
+      return;
+    }
+    setEmailError("");
+
+    setButtonState('default');
+
+    try {
+      const response = await fetch('/api/callback', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, phone, message }),
+      });
+
+      const data = await response.json();
+      
+      if (data.success) {
+        setButtonState('success');
+        setTimeout(() => {
+          setName("");
+          setEmail("");
+          setPhone("");
+          setMessage("");
+          setIsOpen(false);
+          setButtonState('default');
+        }, 2000);
+      } else {
+        setButtonState('error');
+        setTimeout(() => {
+          setButtonState('default');
+        }, 2000);
+      }
+    } catch (error) {
+      console.error('Error submitting callback request:', error);
+      setButtonState('error');
+      setTimeout(() => {
+        setButtonState('default');
+      }, 2000);
+    }
   };
 
   return (
@@ -129,17 +179,31 @@ const StickyCTA = () => {
                   </div>
                   <div>
                     <Label htmlFor="phone" className="text-xs text-slate-700">
-                      Phone
+                      Phone number
                     </Label>
                     <Input
                       id="phone"
                       type="tel"
                       value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      placeholder="Your phone"
+                      onChange={(e) => {
+                        const value = e.target.value.replace(/\D/g, '').slice(0, 10);
+                        setPhone(value);
+                        if (value.length !== 10) {
+                          setPhoneError("Please enter a valid 10-digit phone number");
+                        } else {
+                          setPhoneError("");
+                        }
+                      }}
+                      placeholder="Your number"
                       required
-                      className="h-9"
+                      pattern="[0-9]{10}"
+                      maxLength={10}
+                      minLength={10}
+                      className={`h-9 ${phoneError ? 'border-red-500' : ''}`}
                     />
+                    {phoneError && (
+                      <p className="text-red-500 text-xs mt-1">{phoneError}</p>
+                    )}
                   </div>
                 </div>
 
@@ -151,11 +215,22 @@ const StickyCTA = () => {
                     id="email"
                     type="email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="your@email.com"
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      setEmail(value);
+                      if (value && !validateEmail(value)) {
+                        setEmailError("Please enter a valid email address");
+                      } else {
+                        setEmailError("");
+                      }
+                    }}
+                    placeholder="your@gmail.com"
                     required
-                    className="h-9"
+                    className={`h-9 ${emailError ? 'border-red-500' : ''}`}
                   />
+                  {emailError && (
+                    <p className="text-red-500 text-xs mt-1">{emailError}</p>
+                  )}
                 </div>
 
                 <div>
@@ -180,10 +255,35 @@ const StickyCTA = () => {
                 >
                   <Button
                     type="submit"
-                    className="w-full bg-obsidian-800 hover:bg-obsidian-900 text-white flex items-center gap-2 h-10"
+                    className={`w-full flex items-center gap-2 h-10 ${
+                      buttonState === 'success'
+                        ? 'bg-green-600 hover:bg-green-700'
+                        : buttonState === 'error'
+                        ? 'bg-red-600 hover:bg-red-700'
+                        : 'bg-obsidian-800 hover:bg-obsidian-900'
+                    } text-white`}
+                    disabled={buttonState !== 'default'}
                   >
-                    <PhoneCall className="h-4 w-4" />
-                    Request Callback
+                    {buttonState === 'success' ? (
+                      <>
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        Sent
+                      </>
+                    ) : buttonState === 'error' ? (
+                      <>
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                        Error
+                      </>
+                    ) : (
+                      <>
+                        <PhoneCall className="h-4 w-4" />
+                        Request Callback
+                      </>
+                    )}
                   </Button>
                 </motion.div>
               </form>
