@@ -18,7 +18,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 // Add custom styles for the slider thumb
 const sliderStyles =
-  "w-full [&>span]:bg-white [&>div]:bg-slate-200 [&>div]:h-1";
+  "w-full [&>span]:bg-white [&>span]:rounded-full [&>span]:border-0 [&>div]:bg-slate-200 [&>div]:h-1";
 
 interface ROIData {
   monthlyTraffic: number;
@@ -228,13 +228,13 @@ const ROICalculator = () => {
                     <TabsList className="grid w-full grid-cols-2 bg-white/10 rounded-xl">
                       <TabsTrigger
                         value="monthly"
-                        className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-700 data-[state=active]:to-purple-700 data-[state=active]:text-white rounded-xl font-bold font-inter"
+                        className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-700 data-[state=active]:to-purple-700 data-[state=active]:text-white rounded-xl font-bold font-inter focus:outline-none focus:ring-0 focus:bg-transparent focus:text-white/80 transition-all duration-200 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-0 focus-visible:bg-transparent"
                       >
                         Monthly
                       </TabsTrigger>
                       <TabsTrigger
                         value="yearly"
-                        className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-700 data-[state=active]:to-purple-700 data-[state=active]:text-white rounded-xl font-bold font-inter"
+                        className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-700 data-[state=active]:to-purple-700 data-[state=active]:text-white rounded-xl font-bold font-inter focus:outline-none focus:ring-0 focus:bg-transparent focus:text-white/80 transition-all duration-200 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-0 focus-visible:bg-transparent"
                       >
                         Yearly
                       </TabsTrigger>

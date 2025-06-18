@@ -44,7 +44,7 @@ const IndustryLandingPage = ({ industry }: Props) => {
   const handleWhatsAppClick = () => {
     const message = `Hi! I'm interested in ${industry.name.toLowerCase()} digital marketing services. Can we discuss how you can help my business?`;
     window.open(
-      `https://wa.me/1234567890?text=${encodeURIComponent(message)}`,
+      `https://wa.me/916361725397?text=${encodeURIComponent(message)}`,
       "_blank",
     );
   };
