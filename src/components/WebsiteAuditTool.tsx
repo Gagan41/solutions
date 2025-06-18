@@ -154,12 +154,22 @@ const WebsiteAuditTool = () => {
                     aria-label="Website URL"
                   />
                   <Select value={auditType} onValueChange={setAuditType}>
-                    <SelectTrigger className="w-full md:w-40 bg-white/80 rounded-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none border-white">
+                    <SelectTrigger className="w-full md:w-40 bg-white/90 rounded-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none border-white/50 data-[state=open]:bg-white/90 data-[state=closed]:bg-white/90 hover:bg-white/90 focus:bg-white/90">
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent className="bg-white/90 rounded-lg">
-                      <SelectItem value="seo">SEO Audit</SelectItem>
-                      <SelectItem value="uiux">UI/UX Audit</SelectItem>
+                    <SelectContent className="bg-white/90 rounded-lg border-2 border-white/50">
+                      <SelectItem 
+                        value="seo"
+                        className="focus:bg-blue-400/30 focus:text-blue-800 hover:bg-blue-400/30 hover:text-blue-800"
+                      >
+                        SEO Audit
+                      </SelectItem>
+                      <SelectItem 
+                        value="uiux"
+                        className="focus:bg-blue-400/30 focus:text-blue-800 hover:bg-blue-400/30 hover:text-blue-800"
+                      >
+                        UI/UX Audit
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -292,7 +302,7 @@ const WebsiteAuditTool = () => {
                             `Hi! I just completed a ${auditType === "seo" ? "SEO" : "UI/UX"} audit for ${url} and would like a detailed report. Can you help?`
                           );
                           window.open(
-                            `https://wa.me/1234567890?text=${message}`,
+                            `https://wa.me/916361725397?text=${message}`,
                             "_blank"
                           );
                         }}

@@ -82,3 +82,38 @@
 [data-orientation="horizontal"].bg-primary {
   background: rgb(23, 164, 235) !important;
 }
+
+/* Prevent yellow focus colors on tabs and buttons */
+[role="tab"]:focus,
+[role="tab"]:focus-visible,
+[role="tab"]:focus-within,
+button:focus,
+button:focus-visible,
+button:focus-within {
+  outline: none !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+}
+
+/* Override any browser default yellow focus colors */
+*:focus {
+  outline: none !important;
+}
+
+*:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Force white background on SelectTrigger elements */
+[role="combobox"] {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+}
+
+[role="combobox"]:hover,
+[role="combobox"]:focus,
+[role="combobox"]:focus-visible,
+[role="combobox"][data-state="open"],
+[role="combobox"][data-state="closed"] {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+}

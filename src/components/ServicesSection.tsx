@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import GlareHover from "./ui/GlareHover"
+import Link from "next/link";
 
 const ServicesSection = () => {
   const services = [
@@ -28,26 +29,26 @@ const ServicesSection = () => {
     },
     {
       icon: TrendingUp,
-      title: "Digital Marketing",
+      title: "Digital Marketing And SEO",
       description:
-        "Strategic digital marketing campaigns that drive engagement, conversions, and business growth.",
+        "Strategic digital marketing campaigns that drive engagement,Comprehensive SEO strategies for business growth.",
       features: [
         "Social Media Marketing",
-        "Content Strategy",
         "Email Campaigns",
-        "Analytics & Reporting",
+        "Technical SEO",
+        "Keyword Research",
       ],
     },
     {
       icon: Search,
-      title: "SEO Services",
+      title: "AI For Automation",
       description:
-        "Comprehensive SEO strategies to improve your search rankings and increase organic traffic.",
+        "AI automation boosts efficiency, and drives smarter decision-making to accelerate business growth.",
       features: [
-        "Keyword Research",
-        "On-Page SEO",
-        "Technical SEO",
-        "Local SEO",
+        "Process Automation",
+        "Business Growth",
+        "n8n Engine",
+        "Smart Decisions",
       ],
     },
   ];
@@ -159,16 +160,18 @@ const ServicesSection = () => {
                           ))}
                         </ul>
                         <div className="flex justify-center">
-                          <Button
-                            variant="outline"
-                            className="group-hover:bg-gradient-to-r group-hover:from-blue-700 group-hover:to-purple-700 group-hover:text-white group-hover:border-transparent transition-all duration-300 flex items-center gap-2 border-white/20 bg-white/10 text-white/90 font-inter rounded-full shadow-md backdrop-blur-md"
-                          >
-                            Learn More
-                            <ArrowRight
-                              size={16}
-                              className="group-hover:translate-x-1 transition-transform"
-                            />
-                          </Button>
+                          <Link href="/detailed-information">
+                            <Button
+                              variant="outline"
+                              className="group-hover:bg-gradient-to-r group-hover:from-blue-700 group-hover:to-purple-700 group-hover:text-white group-hover:border-transparent transition-all duration-300 flex items-center gap-2 border-white/20 bg-white/10 text-white/90 font-inter rounded-full shadow-md backdrop-blur-md"
+                            >
+                              Learn More
+                              <ArrowRight
+                                size={16}
+                                className="group-hover:translate-x-1 transition-transform"
+                              />
+                            </Button>
+                          </Link>
                         </div>
                       </CardContent>
                     </Card>
@@ -212,16 +215,18 @@ const ServicesSection = () => {
                           ))}
                         </ul>
                         <div className="flex justify-center">
-                          <Button
-                            variant="outline"
-                            className="group-hover:bg-gradient-to-r group-hover:from-blue-700 group-hover:to-purple-700 group-hover:text-white group-hover:border-transparent transition-all duration-300 flex items-center gap-2 border-white/20 bg-white/10 text-white/90 font-inter rounded-full shadow-md backdrop-blur-md"
-                          >
-                            Learn More
-                            <ArrowRight
-                              size={16}
-                              className="group-hover:translate-x-1 transition-transform"
-                            />
-                          </Button>
+                          <Link href="/detailed-information">
+                            <Button
+                              variant="outline"
+                              className="group-hover:bg-gradient-to-r group-hover:from-blue-700 group-hover:to-purple-700 group-hover:text-white group-hover:border-transparent transition-all duration-300 flex items-center gap-2 border-white/20 bg-white/10 text-white/90 font-inter rounded-full shadow-md backdrop-blur-md"
+                            >
+                              Learn More
+                              <ArrowRight
+                                size={16}
+                                className="group-hover:translate-x-1 transition-transform"
+                              />
+                            </Button>
+                          </Link>
                         </div>
                       </CardContent>
                     </Card>
@@ -265,16 +270,18 @@ const ServicesSection = () => {
                           ))}
                         </ul>
                         <div className="flex justify-center">
-                          <Button
-                            variant="outline"
-                            className="group-hover:bg-gradient-to-r group-hover:from-blue-700 group-hover:to-purple-700 group-hover:text-white group-hover:border-transparent transition-all duration-300 flex items-center gap-2 border-white/20 bg-white/10 text-white/90 font-inter rounded-full shadow-md backdrop-blur-md"
-                          >
-                            Learn More
-                            <ArrowRight
-                              size={16}
-                              className="group-hover:translate-x-1 transition-transform"
-                            />
-                          </Button>
+                          <Link href="/detailed-information">
+                            <Button
+                              variant="outline"
+                              className="group-hover:bg-gradient-to-r group-hover:from-blue-700 group-hover:to-purple-700 group-hover:text-white group-hover:border-transparent transition-all duration-300 flex items-center gap-2 border-white/20 bg-white/10 text-white/90 font-inter rounded-full shadow-md backdrop-blur-md"
+                            >
+                              Learn More
+                              <ArrowRight
+                                size={16}
+                                className="group-hover:translate-x-1 transition-transform"
+                              />
+                            </Button>
+                          </Link>
                         </div>
                       </CardContent>
                     </Card>

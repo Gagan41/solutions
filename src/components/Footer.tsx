@@ -135,15 +135,15 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center gap-3 text-white/80 font-manrope">
                 <Mail size={18} className="text-white/50" />
-                <span>hello@courtinex.com</span>
+                <span>cortinexwebstudio@gmail.com</span>
               </div>
               <div className="flex items-center gap-3 text-white/80 font-manrope">
                 <Phone size={18} className="text-white/50" />
-                <span>+1 (555) 123-4567</span>
+                <span>+(91) 636-172-5397</span>
               </div>
               <div className="flex items-center gap-3 text-white/80 font-manrope">
                 <MapPin size={18} className="text-white/50" />
-                <span>New York, NY 10001</span>
+                <span>Bengaluru,India</span>
               </div>
             </div>
           </motion.div>
