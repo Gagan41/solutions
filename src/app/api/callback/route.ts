@@ -1,7 +1,7 @@
-import { NextResponse } from 'next/server';
-import { MongoClient } from 'mongodb';
+import { NextResponse } from "next/server";
+import { MongoClient } from "mongodb";
 
-const uri = "mongodb+srv://kushalvr7:wfLGrG2PqPd4king7@kushal.sijz8ic.mongodb.net/?retryWrites=true&w=majority&appName=Kushal";
+const uri = process.env.MONGO_URI!;
 const client = new MongoClient(uri);
 
 export async function POST(request: Request) {
@@ -23,13 +23,13 @@ export async function POST(request: Request) {
       createdAt: new Date(),
     });
 
-    return NextResponse.json({ 
-      success: true, 
+    return NextResponse.json({
+      success: true,
       message: "Callback request received successfully",
-      id: result.insertedId 
+      id: result.insertedId,
     });
   } catch (error) {
-    console.error('Error saving callback request:', error);
+    console.error("Error saving callback request:", error);
     return NextResponse.json(
       { success: false, message: "Failed to save callback request" },
       { status: 500 }
@@ -37,4 +37,4 @@ export async function POST(request: Request) {
   } finally {
     await client.close();
   }
-} 
+}

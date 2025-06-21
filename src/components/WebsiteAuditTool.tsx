@@ -35,61 +35,73 @@ const WebsiteAuditTool = () => {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [result, setResult] = useState<AuditResult | null>(null);
   const [email, setEmail] = useState("");
+  const [isSubmittingEmail, setIsSubmittingEmail] = useState(false);
+  const [emailSubmitted, setEmailSubmitted] = useState(false);
 
   const analyzeWebsite = async () => {
     if (!url) return;
-
     setIsAnalyzing(true);
+    setResult(null);
 
-    // Simulate analysis (in real implementation, you'd call actual APIs)
-    setTimeout(() => {
-      const seoIssues = [
-        "Missing meta descriptions on 3 pages",
-        "No SSL certificate detected",
-        "Slow server response time",
-        "Missing alt tags on images",
-        "No structured data markup",
-      ];
+    try {
+      const res = await fetch("/api/audit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, auditType }),
+      });
 
-      const uiuxIssues = [
-        "Poor mobile responsiveness",
-        "Inconsistent color scheme",
-        "Low contrast text elements",
-        "Missing accessibility features",
-        "Cluttered navigation menu",
-      ];
+      const data = await res.json();
 
-      const seoRecommendations = [
-        "Add meta descriptions to improve SEO",
-        "Enable GZIP compression",
-        "Implement lazy loading for images",
-        "Add structured data markup",
-        "Optimize page loading speed",
-      ];
-
-      const uiuxRecommendations = [
-        "Implement responsive design patterns",
-        "Improve color contrast ratios",
-        "Add ARIA labels for accessibility",
-        "Simplify navigation structure",
-        "Optimize user flow and CTAs",
-      ];
-
-      const mockResult: AuditResult = {
-        score: Math.floor(Math.random() * 40) + 60, // 60-100
-        issues: (auditType === "seo" ? seoIssues : uiuxIssues).slice(
-          0,
-          Math.floor(Math.random() * 4) + 1
-        ),
-        recommendations: (auditType === "seo"
-          ? seoRecommendations
-          : uiuxRecommendations
-        ).slice(0, 4),
-        loadTime: Math.random() * 3 + 1,
-      };
-      setResult(mockResult);
+      if (res.ok) {
+        setResult(data);
+      } else {
+        throw new Error(data.error || "Failed");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Failed to analyze website. Please try again.");
+    } finally {
       setIsAnalyzing(false);
-    }, 3000);
+    }
+  };
+
+  const handleEmailSubmit = async () => {
+    if (!email || !result) return;
+
+    setIsSubmittingEmail(true);
+
+    try {
+      const res = await fetch("/api/audit-report", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          url,
+          auditType,
+          auditResult: result,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setEmailSubmitted(true);
+        alert("Thank you! We'll send your detailed report soon.");
+        setEmail(""); // Clear the email field
+      } else {
+        throw new Error(data.message || "Failed to submit email");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Failed to submit email. Please try again.");
+    } finally {
+      setIsSubmittingEmail(false);
+    }
+  };
+
+  const resetEmailForm = () => {
+    setEmailSubmitted(false);
+    setEmail("");
   };
 
   const getScoreColor = (score: number) => {
@@ -158,13 +170,13 @@ const WebsiteAuditTool = () => {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent className="bg-white/90 rounded-lg border-2 border-white/50">
-                      <SelectItem 
+                      <SelectItem
                         value="seo"
                         className="focus:bg-blue-400/30 focus:text-blue-800 hover:bg-blue-400/30 hover:text-blue-800"
                       >
                         SEO Audit
                       </SelectItem>
-                      <SelectItem 
+                      <SelectItem
                         value="uiux"
                         className="focus:bg-blue-400/30 focus:text-blue-800 hover:bg-blue-400/30 hover:text-blue-800"
                       >
@@ -279,40 +291,75 @@ const WebsiteAuditTool = () => {
                       Enter your email to receive a comprehensive audit report
                       with actionable steps.
                     </p>
-                    <div className="flex flex-col sm:flex-row gap-3 mb-4">
-                      <Input
-                        type="email"
-                        placeholder="your@email.com"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="flex-1 bg-white/80 text-obsidian-900 rounded-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none"
-                        aria-label="Email address"
-                      />
-                      <Button className="bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 hover:from-purple-700 hover:to-blue-700 text-white font-bold rounded-xl shadow-md focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none transition-all duration-300">
-                        Get Report
-                      </Button>
-                    </div>
-                    <div className="text-center">
-                      <p className="text-white/60 text-sm mb-3 font-manrope">
-                        Want a full report? Let's chat!
-                      </p>
-                      <Button
-                        onClick={() => {
-                          const message = encodeURIComponent(
-                            `Hi! I just completed a ${auditType === "seo" ? "SEO" : "UI/UX"} audit for ${url} and would like a detailed report. Can you help?`
-                          );
-                          window.open(
-                            `https://wa.me/916361725397?text=${message}`,
-                            "_blank"
-                          );
-                        }}
-                        className="bg-green-600 hover:bg-green-700 text-white flex items-center gap-2 rounded-xl font-manrope shadow-md focus-visible:ring-2 focus-visible:ring-green-400 focus-visible:outline-none"
-                        aria-label="Chat on WhatsApp"
-                      >
-                        <MessageSquare className="w-4 h-4" />
-                        Chat on WhatsApp
-                      </Button>
-                    </div>
+
+                    {emailSubmitted ? (
+                      <div className="text-center py-4">
+                        <CheckCircle className="w-12 h-12 text-green-400 mx-auto mb-2" />
+                        <p className="text-green-300 font-medium">
+                          Email submitted successfully!
+                        </p>
+                        <p className="text-white/60 text-sm mt-1">
+                          We'll send your detailed report soon.
+                        </p>
+                        <Button
+                          onClick={resetEmailForm}
+                          variant="outline"
+                          className="mt-3 text-white bg-transparent"
+                        >
+                          Submit Another Email
+                        </Button>
+                      </div>
+                    ) : (
+                      <>
+                        <div className="flex flex-col sm:flex-row gap-3 mb-4">
+                          <Input
+                            type="email"
+                            placeholder="your@email.com"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            disabled={isSubmittingEmail}
+                            className="flex-1 bg-white/80 text-obsidian-900 rounded-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none disabled:opacity-50"
+                            aria-label="Email address"
+                          />
+                          <Button
+                            onClick={handleEmailSubmit}
+                            disabled={!email || isSubmittingEmail}
+                            className="bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 hover:from-purple-700 hover:to-blue-700 text-white font-bold rounded-xl shadow-md focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none transition-all duration-300 disabled:opacity-50"
+                            aria-label="Submit Email"
+                          >
+                            {isSubmittingEmail ? (
+                              <>
+                                <Clock className="w-4 h-4 mr-2 animate-spin" />
+                                Submitting...
+                              </>
+                            ) : (
+                              "Get Report"
+                            )}
+                          </Button>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-white/60 text-sm mb-3 font-manrope">
+                            Want a full report? Let's chat!
+                          </p>
+                          <Button
+                            onClick={() => {
+                              const message = encodeURIComponent(
+                                `Hi! I just completed a ${auditType === "seo" ? "SEO" : "UI/UX"} audit for ${url} and would like a detailed report. Can you help?`
+                              );
+                              window.open(
+                                `https://wa.me/916361725397?text=${message}`,
+                                "_blank"
+                              );
+                            }}
+                            className="bg-green-600 hover:bg-green-700 text-white flex items-center gap-2 rounded-xl font-manrope shadow-md focus-visible:ring-2 focus-visible:ring-green-400 focus-visible:outline-none"
+                            aria-label="Chat on WhatsApp"
+                          >
+                            <MessageSquare className="w-4 h-4" />
+                            Chat on WhatsApp
+                          </Button>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </motion.div>
               )}
