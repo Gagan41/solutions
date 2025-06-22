@@ -127,7 +127,7 @@ const WebsiteAuditTool = () => {
           className="text-center mb-14"
         >
           <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight leading-snug text-white drop-shadow-lg font-inter mb-4">
-            Free Website{" "}
+            Free AI Website{" "}
             <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
               Audit Tool
             </span>
@@ -304,7 +304,7 @@ const WebsiteAuditTool = () => {
                         <Button
                           onClick={resetEmailForm}
                           variant="outline"
-                          className="mt-3 text-white bg-transparent"
+                          className="mt-3 text-white bg-black"
                         >
                           Submit Another Email
                         </Button>

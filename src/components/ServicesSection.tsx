@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import GlareHover from "./ui/GlareHover"
+import GlareHover from "./ui/GlareHover";
 import Link from "next/link";
 
 const ServicesSection = () => {
@@ -74,6 +74,12 @@ const ServicesSection = () => {
     },
   };
 
+  const handleConsultationClick = () => {
+    // Dispatch custom event to trigger StickyCTA popup
+    const event = new CustomEvent("openStickyCTA");
+    window.dispatchEvent(event);
+  };
+
   return (
     <section
       id="services"
@@ -130,7 +136,7 @@ const ServicesSection = () => {
                     transitionDuration={600}
                     playOnce={false}
                     className="h-full w-full max-w-[320px] md:max-w-none"
-                    style={{ background: 'transparent', border: 'none' }}
+                    style={{ background: "transparent", border: "none" }}
                   >
                     <Card className="h-full w-full group border-none bg-white/10 backdrop-blur-lg shadow-2xl rounded-3xl transition-all duration-300 hover:shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] hover:bg-white/20 ring-1 ring-white/10">
                       <CardHeader className="text-center pb-4">
@@ -185,7 +191,7 @@ const ServicesSection = () => {
                     transitionDuration={600}
                     playOnce={false}
                     className="h-full w-full max-w-[320px] md:max-w-none"
-                    style={{ background: 'transparent', border: 'none' }}
+                    style={{ background: "transparent", border: "none" }}
                   >
                     <Card className="h-full full group border-none bg-white/10 backdrop-blur-lg shadow-2xl rounded-3xl transition-all duration-300 hover:shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] hover:bg-white/20 ring-1 ring-white/10">
                       <CardHeader className="text-center pb-4">
@@ -240,7 +246,7 @@ const ServicesSection = () => {
                     transitionDuration={600}
                     playOnce={false}
                     className="h-full w-full max-w-[320px] md:max-w-none"
-                    style={{ background: 'transparent', border: 'none' }}
+                    style={{ background: "transparent", border: "none" }}
                   >
                     <Card className="h-full w-full group border-none bg-white/10 backdrop-blur-lg shadow-2xl rounded-3xl transition-all duration-300 hover:shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] hover:bg-white/20 ring-1 ring-white/10">
                       <CardHeader className="text-center pb-4">
@@ -302,6 +308,7 @@ const ServicesSection = () => {
           <Button
             size="lg"
             className="bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-4 text-lg font-semibold rounded-full shadow-xl transition-all duration-300 border-none font-manrope"
+            onClick={handleConsultationClick}
           >
             Get a Free Consultation
           </Button>

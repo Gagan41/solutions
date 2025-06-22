@@ -1,141 +1,96 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import {
-  Clock,
-  TrendingUp,
-  Users,
-  Eye,
-  CheckCircle,
-  AlertCircle,
-  Activity,
-} from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { Badge } from "@/components/ui/badge";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Compass, Palette, Code, Rocket, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Magnet from "@/components/ui/Magnet";
 
-interface Project {
-  id: string;
-  client: string;
-  type: string;
-  status: "In Progress" | "Testing" | "Launching" | "Completed";
-  progress: number;
-  startDate: string;
-  metrics: {
-    trafficIncrease?: number;
-    conversionRate?: number;
-    pageSpeed?: number;
-    seoScore?: number;
-  };
-  liveUrl?: string;
-  lastUpdate: string;
-}
+const phases = [
+  {
+    id: "discovery",
+    icon: Compass,
+    title: "Discovery & Strategy",
+    description:
+      "We dive deep into your business, goals, and target audience to build a rock-solid foundation. This phase is about understanding the 'why' behind your project.",
+    details: [
+      "Stakeholder Workshops & Interviews",
+      "In-depth Market & Competitor Research",
+      "Keyword Research & Content Strategy",
+      "Technical & SEO Audits",
+      "Crafting a Project Roadmap",
+    ],
+    color: "text-blue-300",
+    gradient: "from-blue-500/20 to-cyan-500/20",
+  },
+  {
+    id: "design",
+    icon: Palette,
+    title: "Design & Prototyping",
+    description:
+      "We create intuitive, beautiful, and conversion-focused designs that reflect your brand and delight your users. Form and function in perfect harmony.",
+    details: [
+      "User-Flow Mapping & Wireframing",
+      "Mobile-First UI/UX Design in Figma",
+      "Interactive Prototyping & User Testing",
+      "Design System & Style Guide Creation",
+      "Accessibility & Inclusivity Checks",
+    ],
+    color: "text-purple-300",
+    gradient: "from-purple-500/20 to-pink-500/20",
+  },
+  {
+    id: "development",
+    icon: Code,
+    title: "Development & Engineering",
+    description:
+      "Our developers bring designs to life with clean, scalable code and the best technologies for performance and future growth.",
+    details: [
+      "Next.js & React Development",
+      "Custom AI Automation with n8n Engine",
+      "Pixel-Perfect & Responsive Implementation",
+      "Performance & Speed Optimization",
+      "Version Control with Git",
+    ],
+    color: "text-green-300",
+    gradient: "from-green-500/20 to-teal-500/20",
+  },
+  {
+    id: "growth",
+    icon: Rocket,
+    title: "Launch & Growth",
+    description:
+      "We don't just launch and leave. We monitor, analyze, and continuously optimize to ensure your digital asset drives sustainable growth.",
+    details: [
+      "Secure Deployment & Hosting Setup",
+      "Social Media & Email Campaign Integration",
+      "Post-Launch SEO Monitoring & Reporting",
+      "A/B Testing & Conversion Rate Optimization",
+      "Ongoing Support & Maintenance Plans",
+    ],
+    color: "text-pink-300",
+    gradient: "from-pink-500/20 to-orange-500/20",
+  },
+];
 
 const LiveProjectShowcase = () => {
-  const [projects, setProjects] = useState<Project[]>([
-    {
-      id: "1",
-      client: "TechStart Inc.",
-      type: "Full Website Redesign",
-      status: "In Progress",
-      progress: 75,
-      startDate: "2024-01-15",
-      metrics: {
-        pageSpeed: 92,
-        seoScore: 88,
-      },
-      lastUpdate: "2 hours ago",
-    },
-    {
-      id: "2",
-      client: "Local Restaurant Chain",
-      type: "SEO Optimization",
-      status: "Testing",
-      progress: 90,
-      startDate: "2024-01-08",
-      metrics: {
-        trafficIncrease: 145,
-        conversionRate: 3.2,
-        seoScore: 94,
-      },
-      lastUpdate: "1 hour ago",
-    },
-    {
-      id: "3",
-      client: "E-commerce Startup",
-      type: "Digital Marketing Campaign",
-      status: "Launching",
-      progress: 95,
-      startDate: "2024-01-01",
-      metrics: {
-        trafficIncrease: 230,
-        conversionRate: 4.8,
-      },
-      lastUpdate: "30 minutes ago",
-    },
-  ]);
+  const [activePhase, setActivePhase] = useState(phases[0].id);
 
-  // Simulate real-time updates
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setProjects((prev) =>
-        prev.map((project) => ({
-          ...project,
-          progress: Math.min(100, project.progress + Math.random() * 2),
-          metrics: {
-            ...project.metrics,
-            trafficIncrease: project.metrics.trafficIncrease
-              ? project.metrics.trafficIncrease + Math.floor(Math.random() * 5)
-              : undefined,
-          },
-          lastUpdate: "Just now",
-        }))
-      );
-    }, 10000); // Update every 10 seconds
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "In Progress":
-        return "bg-blue-100 text-blue-800";
-      case "Testing":
-        return "bg-yellow-100 text-yellow-800";
-      case "Launching":
-        return "bg-purple-100 text-purple-800";
-      case "Completed":
-        return "bg-green-100 text-green-800";
-      default:
-        return "bg-gray-100 text-gray-800";
-    }
+  const handleStartProjectClick = () => {
+    const event = new CustomEvent("openStickyCTA");
+    window.dispatchEvent(event);
   };
 
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case "In Progress":
-        return <Clock className="w-4 h-4" />;
-      case "Testing":
-        return <AlertCircle className="w-4 h-4" />;
-      case "Launching":
-        return <TrendingUp className="w-4 h-4" />;
-      case "Completed":
-        return <CheckCircle className="w-4 h-4" />;
-      default:
-        return <Activity className="w-4 h-4" />;
-    }
-  };
+  const ActiveIcon = phases.find((p) => p.id === activePhase)?.icon;
 
   return (
-    <section className="py-24 px-6 sm:px-8 lg:px-12">
+    <section className="py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* Gradient/Blur overlays for depth */}
         <div className="absolute inset-0 pointer-events-none z-0">
           <div className="absolute -top-24 -left-24 w-96 h-96 bg-gradient-to-br from-blue-700/30 to-purple-500/20 rounded-full blur-3xl" />
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-tr from-blue-700/30 to-purple-500/20 rounded-full blur-3xl" />
         </div>
+
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -143,130 +98,109 @@ const LiveProjectShowcase = () => {
           viewport={{ once: true }}
           className="text-center mb-14 relative z-10"
         >
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse" />
-            <span className="text-sm font-medium text-white/80 font-manrope">
-              LIVE UPDATES
-            </span>
-          </div>
           <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight leading-snug text-white drop-shadow-lg font-inter mb-4">
-            Projects in{" "}
+            Our Blueprint for{" "}
             <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-              Real-Time
+              Digital Success
             </span>
           </h2>
           <p className="text-lg md:text-xl text-white/80 max-w-3xl mx-auto font-manrope drop-shadow-md">
-            See our current projects and their live performance metrics as we
-            work on them.
+            A transparent, step-by-step look into how we bring your vision to
+            life and deliver exceptional results.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.6,
-                delay: index * 0.1,
-                ease: "easeOut",
-              }}
-              viewport={{ once: true }}
-            >
-              <Card className="h-full border-none bg-white/10 backdrop-blur-lg shadow-2xl rounded-2xl transition-all duration-300 group relative z-10">
-                <CardHeader className="pb-4">
-                  <div className="flex items-start justify-between mb-2">
-                    <CardTitle className="text-lg font-bold text-white font-manrope drop-shadow">
-                      {project.client}
-                    </CardTitle>
-                    <Badge className="bg-white/10 text-white/80 font-inter rounded-full px-3 py-1 flex items-center gap-1 text-xs shadow group-hover:bg-gradient-to-r group-hover:from-blue-700 group-hover:to-purple-700 transition-all duration-300">
-                      {getStatusIcon(project.status)}
-                      {project.status}
-                    </Badge>
-                  </div>
-                  <p className="text-sm text-white/70 font-inter">
-                    {project.type}
-                  </p>
-                </CardHeader>
-
-                <CardContent className="space-y-4">
-                  {/* Progress */}
-                  <div>
-                    <div className="flex justify-between text-sm mb-2">
-                      <span className="text-white/70 font-manrope">
-                        Progress
-                      </span>
-                      <span className="font-bold text-white font-inter">
-                        {Math.round(project.progress)}%
-                      </span>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 relative z-10">
+          <div className="lg:col-span-4">
+            <div className="sticky top-24">
+              <div className="space-y-2">
+                {phases.map((phase) => (
+                  <button
+                    key={phase.id}
+                    onClick={() => setActivePhase(phase.id)}
+                    className={`w-full text-left p-4 rounded-lg transition-all duration-300 flex items-center gap-4 border ${
+                      activePhase === phase.id
+                        ? "bg-white/20 border-white/30 shadow-lg"
+                        : "bg-white/5 border-white/10 hover:bg-white/10"
+                    }`}
+                  >
+                    <div
+                      className={`p-2 rounded-full bg-white/10 ${
+                        activePhase === phase.id ? phase.color : "text-white/70"
+                      }`}
+                    >
+                      <phase.icon className="w-6 h-6" />
                     </div>
-                    <Progress
-                      value={project.progress}
-                      className="h-2 bg-white/20"
-                    />
-                  </div>
+                    <div>
+                      <h3
+                        className={`text-lg font-bold font-manrope ${
+                          activePhase === phase.id
+                            ? "text-white"
+                            : "text-white/80"
+                        }`}
+                      >
+                        {phase.title}
+                      </h3>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
 
-                  {/* Metrics */}
-                  <div className="grid grid-cols-2 gap-3">
-                    {project.metrics.trafficIncrease && (
-                      <div className="text-center p-3 bg-green-400/10 rounded-xl">
-                        <TrendingUp className="w-4 h-4 text-green-400 mx-auto mb-1" />
-                        <div className="text-lg font-bold text-green-300 font-inter">
-                          +{project.metrics.trafficIncrease}%
-                        </div>
-                        <div className="text-xs text-green-200 font-manrope">
-                          Traffic
-                        </div>
-                      </div>
-                    )}
+          <div className="lg:col-span-8">
+            <AnimatePresence mode="wait">
+              {phases
+                .filter((p) => p.id === activePhase)
+                .map((phase) => (
+                  <motion.div
+                    key={phase.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className={`p-8 rounded-2xl border border-white/20 shadow-2xl bg-gradient-to-br ${phase.gradient}`}
+                  >
+                    <div className="flex items-center gap-4 mb-4">
+                      {ActiveIcon && (
+                        <ActiveIcon className={`w-10 h-10 ${phase.color}`} />
+                      )}
+                      <h3 className="text-3xl font-extrabold text-white font-inter drop-shadow-md">
+                        {phase.title}
+                      </h3>
+                    </div>
+                    <p className="text-white/80 text-lg mb-8 font-manrope leading-relaxed">
+                      {phase.description}
+                    </p>
 
-                    {project.metrics.conversionRate && (
-                      <div className="text-center p-3 bg-blue-400/10 rounded-xl">
-                        <Users className="w-4 h-4 text-blue-300 mx-auto mb-1" />
-                        <div className="text-lg font-bold text-blue-200 font-inter">
-                          {project.metrics.conversionRate}%
-                        </div>
-                        <div className="text-xs text-blue-200 font-manrope">
-                          Conversion
-                        </div>
-                      </div>
-                    )}
-
-                    {project.metrics.pageSpeed && (
-                      <div className="text-center p-3 bg-purple-400/10 rounded-xl">
-                        <Activity className="w-4 h-4 text-purple-300 mx-auto mb-1" />
-                        <div className="text-lg font-bold text-purple-200 font-inter">
-                          {project.metrics.pageSpeed}
-                        </div>
-                        <div className="text-xs text-purple-200 font-manrope">
-                          Speed Score
-                        </div>
-                      </div>
-                    )}
-
-                    {project.metrics.seoScore && (
-                      <div className="text-center p-3 bg-pink-400/10 rounded-xl">
-                        <Eye className="w-4 h-4 text-pink-300 mx-auto mb-1" />
-                        <div className="text-lg font-bold text-pink-200 font-inter">
-                          {project.metrics.seoScore}
-                        </div>
-                        <div className="text-xs text-pink-200 font-manrope">
-                          SEO Score
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Last Update */}
-                  <div className="text-xs text-white/60 flex items-center gap-1 font-manrope">
-                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                    Last updated: {project.lastUpdate}
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
+                    <h4 className="text-xl font-bold text-white mb-4 font-inter">
+                      Key Activities & Deliverables
+                    </h4>
+                    <ul className="space-y-3">
+                      {phase.details.map((detail, index) => (
+                        <motion.li
+                          key={index}
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{
+                            duration: 0.3,
+                            delay: index * 0.1,
+                          }}
+                          className="flex items-start gap-3"
+                        >
+                          <Check
+                            className={`w-5 h-5 mt-1 flex-shrink-0 ${phase.color}`}
+                          />
+                          <span className="text-white/90 font-manrope">
+                            {detail}
+                          </span>
+                        </motion.li>
+                      ))}
+                    </ul>
+                  </motion.div>
+                ))}
+            </AnimatePresence>
+          </div>
         </div>
 
         <motion.div
@@ -274,15 +208,20 @@ const LiveProjectShowcase = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
           viewport={{ once: true }}
-          className="text-center mt-12 relative z-10"
+          className="text-center mt-16 relative z-10"
         >
-          <p className="text-white/80 mb-4 font-manrope">
-            Want to see your project here? Let's start building something
-            amazing together.
+          <p className="text-white/80 mb-6 font-manrope text-lg">
+            Ready to start your project's blueprint?
           </p>
-          <Button className="bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-3 rounded-xl font-bold shadow-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none font-inter">
-            Start Your Project
-          </Button>
+          <Magnet>
+            <Button
+              onClick={handleStartProjectClick}
+              size="lg"
+              className="bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-4 text-lg font-semibold rounded-full shadow-xl transition-all duration-300 border-none font-manrope"
+            >
+              Let's Build Together
+            </Button>
+          </Magnet>
         </motion.div>
       </div>
     </section>

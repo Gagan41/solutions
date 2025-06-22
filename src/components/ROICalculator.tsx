@@ -8,6 +8,8 @@ import {
   DollarSign,
   Users,
   ArrowRight,
+  CheckCircle,
+  AlertCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -38,6 +40,11 @@ const ROICalculator = () => {
   const [averageOrderValue, setAverageOrderValue] = useState([100]);
   const [showResults, setShowResults] = useState(false);
   const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
 
   const calculateROI = (): ROIData => {
     const traffic = monthlyTraffic[0];
@@ -73,9 +80,9 @@ const ROICalculator = () => {
   const roiData = calculateROI();
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat("en-US", {
+    return new Intl.NumberFormat("en-IN", {
       style: "currency",
-      currency: "USD",
+      currency: "INR",
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(amount);
@@ -83,6 +90,79 @@ const ROICalculator = () => {
 
   const handleCalculate = () => {
     setShowResults(true);
+  };
+
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setEmail(value);
+
+    if (value && !validateEmail(value)) {
+      setEmailError("Please enter a valid email address");
+    } else {
+      setEmailError("");
+    }
+  };
+
+  const handleGetPlan = async () => {
+    if (!email.trim()) {
+      setEmailError("Please enter your email address");
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      setEmailError("Please enter a valid email address");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitStatus("idle");
+
+    try {
+      const response = await fetch("/api/roi-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email.trim(),
+          roiData: roiData,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setSubmitStatus("success");
+        setEmail("");
+        setTimeout(() => {
+          setSubmitStatus("idle");
+        }, 3000);
+      } else {
+        setSubmitStatus("error");
+        if (data.message === "Email already registered") {
+          setEmailError("This email is already registered");
+        } else {
+          setEmailError(data.message || "Failed to submit email");
+        }
+        setTimeout(() => {
+          setSubmitStatus("idle");
+        }, 3000);
+      }
+    } catch (error) {
+      console.error("Error submitting ROI email:", error);
+      setSubmitStatus("error");
+      setEmailError("Failed to submit email. Please try again.");
+      setTimeout(() => {
+        setSubmitStatus("idle");
+      }, 3000);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -176,7 +256,7 @@ const ROICalculator = () => {
 
                 <div>
                   <Label className="text-sm font-medium text-white/80 font-manrope">
-                    Average Order Value ($)
+                    Average Order Value (₹)
                   </Label>
                   <div className="mt-2">
                     <Slider
@@ -188,11 +268,11 @@ const ROICalculator = () => {
                       className={sliderStyles}
                     />
                     <div className="flex justify-between text-sm text-white/60 mt-1 font-inter">
-                      <span>$25</span>
+                      <span>₹25</span>
                       <span className="font-medium text-white">
-                        ${averageOrderValue[0]}
+                        ₹{averageOrderValue[0]}
                       </span>
-                      <span>$1,000</span>
+                      <span>₹1,000</span>
                     </div>
                   </div>
                 </div>
@@ -331,16 +411,71 @@ const ROICalculator = () => {
                       business.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-2">
-                      <Input
-                        type="email"
-                        placeholder="your@email.com"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="flex-1 bg-white/80 text-obsidian-900 rounded-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none"
-                        aria-label="Email address"
-                      />
-                      <Button className="bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 hover:from-purple-700 hover:to-blue-700 text-white font-bold rounded-xl shadow-md focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none transition-all duration-300">
-                        Get Plan
+                      <div className="flex-1">
+                        <Input
+                          type="email"
+                          placeholder="your@email.com"
+                          value={email}
+                          onChange={handleEmailChange}
+                          className={`bg-white/80 text-obsidian-900 rounded-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none ${
+                            emailError ? "border-red-500" : ""
+                          }`}
+                          aria-label="Email address"
+                        />
+                        {emailError && (
+                          <p className="text-red-400 text-xs mt-1 font-manrope">
+                            {emailError}
+                          </p>
+                        )}
+                      </div>
+                      <Button
+                        onClick={handleGetPlan}
+                        className={`font-bold rounded-xl shadow-md focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none transition-all duration-300 ${
+                          submitStatus === "success"
+                            ? "bg-green-600 hover:bg-green-700"
+                            : submitStatus === "error"
+                              ? "bg-red-600 hover:bg-red-700"
+                              : "bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 hover:from-purple-700 hover:to-blue-700"
+                        } text-white`}
+                        disabled={isSubmitting}
+                      >
+                        {isSubmitting ? (
+                          <div className="flex items-center justify-center">
+                            <svg
+                              className="animate-spin h-5 w-5 mr-3 text-white"
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                            >
+                              <circle
+                                className="opacity-25"
+                                cx="12"
+                                cy="12"
+                                r="10"
+                                stroke="currentColor"
+                                strokeWidth="4"
+                              ></circle>
+                              <path
+                                className="opacity-75"
+                                fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.163 0 1 5.163 1 12s5.163 12 12 12 12-5.163 12-12S18.837 0 12 0v4c3.305 0 6.305 1.163 8.837 3.163z"
+                              ></path>
+                            </svg>
+                            Submitting...
+                          </div>
+                        ) : submitStatus === "success" ? (
+                          <div className="flex items-center">
+                            <CheckCircle className="h-5 w-5 mr-2" />
+                            Sent!
+                          </div>
+                        ) : submitStatus === "error" ? (
+                          <div className="flex items-center">
+                            <AlertCircle className="h-5 w-5 mr-2" />
+                            Error
+                          </div>
+                        ) : (
+                          "Get Plan"
+                        )}
                       </Button>
                     </div>
                   </div>

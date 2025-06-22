@@ -197,6 +197,12 @@ const MicroBlog = () => {
     }
   };
 
+  const handleCustomAnalysisClick = () => {
+    // Dispatch custom event to trigger StickyCTA popup
+    const event = new CustomEvent("openStickyCTA");
+    window.dispatchEvent(event);
+  };
+
   return (
     <section className="py-24 px-6 sm:px-8 lg:px-12">
       <div className="max-w-7xl mx-auto relative z-10">
@@ -372,7 +378,10 @@ const MicroBlog = () => {
           <p className="text-white/80 mb-4 font-manrope">
             Want personalized insights for your website?
           </p>
-          <Button className="bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-3 rounded-xl font-bold shadow-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none font-inter">
+          <Button
+            className="bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-3 rounded-xl font-bold shadow-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none font-inter"
+            onClick={handleCustomAnalysisClick}
+          >
             Get Custom Analysis
           </Button>
         </motion.div>

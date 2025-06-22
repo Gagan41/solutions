@@ -44,13 +44,13 @@ const ClientSuccessTimeline = () => {
   const caseStudies: CaseStudy[] = [
     {
       id: "1",
-      client: "TechFlow Solutions",
-      industry: "B2B SaaS",
+      client: "Nandi Agrotech",
+      industry: "Farming, Agro-Tech",
       challenge:
-        "Low organic traffic and poor conversion rates on their landing pages",
+        "Low organic traffic, poor conversion rates, and no dedicated SEO landing page for conversions.",
       solution:
-        "Complete SEO overhaul, landing page optimization, and content marketing strategy",
-      timeline: "6 months",
+        "Complete on-page and technical SEO overhaul, creation of a keyword-optimized landing page, and execution of a content marketing strategy targeting long-tail keywords.",
+      timeline: "4 months",
       results: [
         {
           metric: "Organic Traffic",
@@ -66,23 +66,22 @@ const ClientSuccessTimeline = () => {
         },
         {
           metric: "Monthly Revenue",
-          before: "$45K",
-          after: "$180K",
+          before: "₹45K",
+          after: "₹180K",
           improvement: "+300%",
         },
       ],
       testimonial: {
-        text: "Courtinex transformed our entire digital presence. The results speak for themselves - we've quadrupled our revenue in just 6 months.",
-        author: "Sarah Chen",
-        position: "CEO, TechFlow Solutions",
+        text: "Courtinex transformed our entire digital presence. The results speak for themselves - we've quadrupled our revenue in just 4 months.",
+        author: "Kiran Kumar",
+        position: "Nandi Agrotech",
       },
-      image:
-        "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&q=80",
+      image: "https://nandi-agrotech.in/assets/hero-O2UdrBDE.jpg",
     },
     {
       id: "2",
-      client: "Urban Eats Restaurant Group",
-      industry: "Food & Beverage",
+      client: "Shashi Adda",
+      industry: "Men's Fashion",
       challenge:
         "Multiple locations with inconsistent online presence and low local visibility",
       solution:
@@ -110,52 +109,57 @@ const ClientSuccessTimeline = () => {
       ],
       testimonial: {
         text: "Our online orders tripled and we're now the top-rated restaurant group in our area. The ROI has been incredible.",
-        author: "Marcus Rodriguez",
-        position: "Owner, Urban Eats",
+        author: "Sashi Kumar",
+        position: "Owner,Sashi Adda",
       },
-      image:
-        "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&q=80",
+      image: "/images/sashi.png",
     },
     {
       id: "3",
-      client: "EcoHome Products",
-      industry: "E-commerce",
-      challenge: "High cart abandonment rates and low customer lifetime value",
+      client: "Course Mastery",
+      industry: "EdTech",
+      challenge:
+        "High cart abandonment rate, low customer lifetime value, and missing SEO-optimized landing pages.",
       solution:
-        "E-commerce optimization, email marketing automation, and conversion rate optimization",
+        "Conversion-optimized landing page creation using SEO best practices, behavioral analytics for checkout funnel improvements, and content-driven email automation strategy.",
       timeline: "5 months",
       results: [
         {
           metric: "Cart Abandonment",
           before: "78%",
-          after: "45%",
+          after: "25%",
           improvement: "-42%",
         },
         {
           metric: "Customer LTV",
-          before: "$85",
-          after: "$240",
+          before: "₹85",
+          after: "₹240",
           improvement: "+182%",
         },
         {
           metric: "Email Revenue",
-          before: "$5K/month",
-          after: "$28K/month",
+          before: "₹5K/month",
+          after: "₹28K/month",
           improvement: "+460%",
         },
       ],
       testimonial: {
         text: "The email automation alone pays for their entire service. Our customer relationships have never been stronger.",
-        author: "Jennifer Walsh",
-        position: "Marketing Director, EcoHome",
+        author: "Ashwin Kumar ML",
+        position: "Course Mastery",
       },
-      image:
-        "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&q=80",
+      image: "/images/ashwin.png",
     },
   ];
 
   const toggleExpanded = (id: string) => {
     setExpandedCase(expandedCase === id ? null : id);
+  };
+
+  const handleStartSuccessStory = () => {
+    // Dispatch custom event to trigger StickyCTA popup
+    const event = new CustomEvent("openStickyCTA");
+    window.dispatchEvent(event);
   };
 
   return (
@@ -173,13 +177,13 @@ const ClientSuccessTimeline = () => {
           viewport={{ once: true }}
           className="text-center mb-10 sm:mb-16 relative z-10 px-2"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-snug text-white drop-shadow-lg font-inter mb-4">
+          <h2 className="text-4xl font-extrabold leading-snug tracking-tight text-white drop-shadow-lg font-inter sm:text-5xl">
             Client{" "}
             <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
               Success Stories
             </span>
           </h2>
-          <p className="text-lg md:text-xl text-white/80 max-w-3xl mx-auto font-manrope drop-shadow-md">
+          <p className="mx-auto max-w-3xl text-base text-white/80 drop-shadow-md font-manrope sm:text-lg md:text-xl">
             Real results from real businesses. See how we've helped companies
             like yours achieve remarkable growth.
           </p>
@@ -311,12 +315,12 @@ const ClientSuccessTimeline = () => {
                                 {study.results.map((result, idx) => (
                                   <div
                                     key={idx}
-                                    className="flex items-center justify-between p-3 bg-white/10 rounded-xl shadow-inner"
+                                    className="flex flex-col items-start gap-2 rounded-xl bg-white/10 p-3 shadow-inner sm:flex-row sm:items-center sm:justify-between"
                                   >
                                     <span className="font-medium text-white font-manrope">
                                       {result.metric}
                                     </span>
-                                    <div className="flex items-center gap-4">
+                                    <div className="flex flex-wrap items-center gap-2 sm:gap-4">
                                       <span className="text-sm text-white/60 font-inter">
                                         {result.before}
                                       </span>
@@ -324,7 +328,7 @@ const ClientSuccessTimeline = () => {
                                       <span className="text-sm font-medium text-white font-inter">
                                         {result.after}
                                       </span>
-                                      <Badge className="bg-green-400/10 text-green-300 font-inter rounded-full px-2 py-1 text-xs border-none">
+                                      <Badge className="border-none bg-green-400/10 px-2 py-1 text-xs text-green-300 font-inter">
                                         {result.improvement}
                                       </Badge>
                                     </div>
@@ -334,9 +338,9 @@ const ClientSuccessTimeline = () => {
                             </div>
 
                             {/* Testimonial */}
-                            <div className="bg-gradient-to-r from-blue-900/80 to-purple-900/80 rounded-xl p-4 sm:p-6 text-white shadow-lg mt-6 sm:mt-8">
-                              <Quote className="w-8 h-8 text-yellow-300 mb-4" />
-                              <p className="text-lg mb-4 italic font-manrope">
+                            <div className="mt-6 rounded-xl bg-gradient-to-r from-blue-900/80 to-purple-900/80 p-4 text-white shadow-lg sm:mt-8 sm:p-6">
+                              <Quote className="mb-4 h-8 w-8 text-yellow-300" />
+                              <p className="mb-4 text-base italic font-manrope sm:text-lg">
                                 "{study.testimonial.text}"
                               </p>
                               <div className="flex items-center gap-3">
@@ -381,7 +385,10 @@ const ClientSuccessTimeline = () => {
           </p>
           <div className="flex justify-center">
             <Magnet padding={150} disabled={false} magnetStrength={10}>
-              <Button className="bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 hover:from-purple-700 hover:to-blue-700 text-white px-6 sm:px-8 py-3 text-base sm:text-lg rounded-xl font-bold shadow-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none font-inter">
+              <Button
+                className="bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 hover:from-purple-700 hover:to-blue-700 text-white px-6 sm:px-8 py-3 text-base sm:text-lg rounded-xl font-bold shadow-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none font-inter"
+                onClick={handleStartSuccessStory}
+              >
                 Start Your Success Story
               </Button>
             </Magnet>

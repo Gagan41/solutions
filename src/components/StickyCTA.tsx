@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageSquare, PhoneCall, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -21,10 +21,25 @@ const StickyCTA = () => {
   const [phone, setPhone] = useState("");
   const [phoneError, setPhoneError] = useState("");
   const [emailError, setEmailError] = useState("");
-  const [buttonState, setButtonState] = useState<'default' | 'success' | 'error'>('default');
+  const [buttonState, setButtonState] = useState<
+    "default" | "success" | "error"
+  >("default");
+
+  // Listen for custom event to open the popup
+  useEffect(() => {
+    const handleOpenStickyCTA = () => {
+      setIsOpen(true);
+    };
+
+    window.addEventListener("openStickyCTA", handleOpenStickyCTA);
+
+    return () => {
+      window.removeEventListener("openStickyCTA", handleOpenStickyCTA);
+    };
+  }, []);
 
   const validateEmail = (email: string) => {
-    return email.toLowerCase().endsWith('@gmail.com');
+    return email.toLowerCase().endsWith("@gmail.com");
   };
 
   const handleWhatsAppClick = () => {
@@ -37,7 +52,7 @@ const StickyCTA = () => {
 
   const handleCallbackSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validate phone number
     if (phone.length !== 10) {
       setPhoneError("Please enter a valid 10-digit phone number");
@@ -52,40 +67,40 @@ const StickyCTA = () => {
     }
     setEmailError("");
 
-    setButtonState('default');
+    setButtonState("default");
 
     try {
-      const response = await fetch('/api/callback', {
-        method: 'POST',
+      const response = await fetch("/api/callback", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ name, email, phone, message }),
       });
 
       const data = await response.json();
-      
+
       if (data.success) {
-        setButtonState('success');
+        setButtonState("success");
         setTimeout(() => {
           setName("");
           setEmail("");
           setPhone("");
           setMessage("");
           setIsOpen(false);
-          setButtonState('default');
+          setButtonState("default");
         }, 2000);
       } else {
-        setButtonState('error');
+        setButtonState("error");
         setTimeout(() => {
-          setButtonState('default');
+          setButtonState("default");
         }, 2000);
       }
     } catch (error) {
-      console.error('Error submitting callback request:', error);
-      setButtonState('error');
+      console.error("Error submitting callback request:", error);
+      setButtonState("error");
       setTimeout(() => {
-        setButtonState('default');
+        setButtonState("default");
       }, 2000);
     }
   };
@@ -186,10 +201,14 @@ const StickyCTA = () => {
                       type="tel"
                       value={phone}
                       onChange={(e) => {
-                        const value = e.target.value.replace(/\D/g, '').slice(0, 10);
+                        const value = e.target.value
+                          .replace(/\D/g, "")
+                          .slice(0, 10);
                         setPhone(value);
                         if (value.length !== 10) {
-                          setPhoneError("Please enter a valid 10-digit phone number");
+                          setPhoneError(
+                            "Please enter a valid 10-digit phone number"
+                          );
                         } else {
                           setPhoneError("");
                         }
@@ -199,7 +218,7 @@ const StickyCTA = () => {
                       pattern="[0-9]{10}"
                       maxLength={10}
                       minLength={10}
-                      className={`h-9 ${phoneError ? 'border-red-500' : ''}`}
+                      className={`h-9 ${phoneError ? "border-red-500" : ""}`}
                     />
                     {phoneError && (
                       <p className="text-red-500 text-xs mt-1">{phoneError}</p>
@@ -226,7 +245,7 @@ const StickyCTA = () => {
                     }}
                     placeholder="your@gmail.com"
                     required
-                    className={`h-9 ${emailError ? 'border-red-500' : ''}`}
+                    className={`h-9 ${emailError ? "border-red-500" : ""}`}
                   />
                   {emailError && (
                     <p className="text-red-500 text-xs mt-1">{emailError}</p>
@@ -256,25 +275,45 @@ const StickyCTA = () => {
                   <Button
                     type="submit"
                     className={`w-full flex items-center gap-2 h-10 ${
-                      buttonState === 'success'
-                        ? 'bg-green-600 hover:bg-green-700'
-                        : buttonState === 'error'
-                        ? 'bg-red-600 hover:bg-red-700'
-                        : 'bg-obsidian-800 hover:bg-obsidian-900'
+                      buttonState === "success"
+                        ? "bg-green-600 hover:bg-green-700"
+                        : buttonState === "error"
+                          ? "bg-red-600 hover:bg-red-700"
+                          : "bg-obsidian-800 hover:bg-obsidian-900"
                     } text-white`}
-                    disabled={buttonState !== 'default'}
+                    disabled={buttonState !== "default"}
                   >
-                    {buttonState === 'success' ? (
+                    {buttonState === "success" ? (
                       <>
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        <svg
+                          className="w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M5 13l4 4L19 7"
+                          />
                         </svg>
                         Sent
                       </>
-                    ) : buttonState === 'error' ? (
+                    ) : buttonState === "error" ? (
                       <>
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        <svg
+                          className="w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M6 18L18 6M6 6l12 12"
+                          />
                         </svg>
                         Error
                       </>
