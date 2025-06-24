@@ -84,7 +84,7 @@ const LiveProjectShowcase = () => {
   const ActiveIcon = phases.find((p) => p.id === activePhase)?.icon;
 
   return (
-    <section className="py-24 px-4 sm:px-6 lg:px-8">
+    <section id="about" className="py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="absolute inset-0 pointer-events-none z-0">
           <div className="absolute -top-24 -left-24 w-96 h-96 bg-gradient-to-br from-blue-700/30 to-purple-500/20 rounded-full blur-3xl" />
