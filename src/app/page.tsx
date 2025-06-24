@@ -1,3 +1,4 @@
+import HeroIntro from "@/components/HeroIntro";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import ServicesSection from "@/components/ServicesSection";
@@ -12,20 +13,23 @@ import ExitIntentPopup from "@/components/ExitIntentPopup";
 
 export default function Page() {
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-[#181C2A] via-[#232946] to-[#181C2A]">
-      <Navbar />
-      <HeroSection />
-      <ServicesSection />
-      <div data-section="audit">
-        <WebsiteAuditTool />
+    <>
+      <HeroIntro />
+      <div className="min-h-screen w-full bg-gradient-to-br from-[#181C2A] via-[#232946] to-[#181C2A]">
+        <Navbar />
+        <HeroSection />
+        <ServicesSection />
+        <div data-section="audit">
+          <WebsiteAuditTool />
+        </div>
+        <MicroBlog />
+        <LiveProjectShowcase />
+        <ROICalculator />
+        <ClientSuccessTimeline />
+        <Footer />
+        <StickyCTA />
+        <ExitIntentPopup />
       </div>
-      <MicroBlog />
-      <LiveProjectShowcase />
-      <ROICalculator />
-      <ClientSuccessTimeline />
-      <Footer />
-      <StickyCTA />
-      <ExitIntentPopup />
-    </div>
+    </>
   );
 }
