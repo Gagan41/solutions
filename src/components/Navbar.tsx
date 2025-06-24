@@ -38,7 +38,7 @@ const Navbar = () => {
               key={item}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => scrollToSection(item.toLowerCase())}
+              onClick={() => scrollToSection(item === "About" ? "about" : item.toLowerCase())}
               className="text-slate-100 hover:text-pink-400 transition-colors duration-200 font-medium"
             >
               {item}
@@ -68,7 +68,7 @@ const Navbar = () => {
           {["Home", "Services", "About", "Contact"].map((item) => (
             <button
               key={item}
-              onClick={() => scrollToSection(item.toLowerCase())}
+              onClick={() => scrollToSection(item === "About" ? "about" : item.toLowerCase())}
               className="block w-full text-left text-slate-200 hover:text-pink-400 transition-colors duration-200 font-medium py-2"
             >
               {item}
