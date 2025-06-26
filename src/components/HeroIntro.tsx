@@ -16,20 +16,19 @@ export default function HeroIntro() {
   ];
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(false);
-    }, 6000); // Total duration of intro
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentText((prev) => (prev + 1) % texts.length);
-    }, 1200); // Change text every 1.2 seconds
-
-    return () => clearInterval(interval);
-  }, [texts.length]);
+    if (currentText < texts.length - 1) {
+      const interval = setTimeout(() => {
+        setCurrentText((prev) => prev + 1);
+      }, 1200);
+      return () => clearTimeout(interval);
+    } else {
+      // After showing the last text, wait for tagline animation, then fade out
+      const timer = setTimeout(() => {
+        setIsVisible(false);
+      }, 2000); // Show tagline for 2s
+      return () => clearTimeout(timer);
+    }
+  }, [currentText, texts.length]);
 
   if (!isVisible) return null;
 
