@@ -25,7 +25,7 @@ export default function RootLayout({
       <body
         className={
           inter.className +
-          " overflow-x-hidden bg-gradient-to-br from-[#181C2A] via-[#232946] to-[#181C2A] " +
+          " overflow-x-hidden bg-black " +
           robotoFlex.className
         }
       >

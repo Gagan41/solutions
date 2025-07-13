@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function HeroIntro() {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
   const [currentText, setCurrentText] = useState(0);
   const introRef = useRef<HTMLDivElement>(null);
 
@@ -16,6 +16,14 @@ export default function HeroIntro() {
   ];
 
   useEffect(() => {
+    // Only show intro if not already shown in this session
+    if (typeof window !== "undefined" && !sessionStorage.getItem("cxw_intro_shown")) {
+      setIsVisible(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!isVisible) return;
     if (currentText < texts.length - 1) {
       const interval = setTimeout(() => {
         setCurrentText((prev) => prev + 1);
@@ -25,10 +33,13 @@ export default function HeroIntro() {
       // After showing the last text, wait for tagline animation, then fade out
       const timer = setTimeout(() => {
         setIsVisible(false);
+        if (typeof window !== "undefined") {
+          sessionStorage.setItem("cxw_intro_shown", "true");
+        }
       }, 2000); // Show tagline for 2s
       return () => clearTimeout(timer);
     }
-  }, [currentText, texts.length]);
+  }, [currentText, texts.length, isVisible]);
 
   if (!isVisible) return null;
 

@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
 
 interface InsightTip {
   id: number;
@@ -220,7 +221,7 @@ const MicroBlog = () => {
         >
           <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight leading-snug text-white drop-shadow-lg font-inter mb-4">
             Digital{" "}
-            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <span className="text-white">
               Insights
             </span>
           </h2>
@@ -230,142 +231,19 @@ const MicroBlog = () => {
           </p>
         </motion.div>
 
+        {/* Infinite Moving Cards Animation */}
         <div className="relative overflow-x-hidden z-10">
-          {/* Navigation Buttons */}
-          <div className="flex justify-between items-center mb-6">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={prevSlide}
-              className="flex items-center gap-2 rounded-xl bg-white/10 border-white/20 text-white hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none"
-              aria-label="Previous Insights"
-            >
-              <ChevronLeft className="w-4 h-4" />
-              Previous
-            </Button>
-
-            <div className="flex items-center gap-2">
-              <div className="text-sm text-white/80 font-manrope">
-                {visibleTips === 1
-                  ? `${currentIndex + 1} of ${paddedTips.length}`
-                  : `${currentIndex + 1} - ${Math.min(currentIndex + visibleTips, paddedTips.length)} of ${paddedTips.length}`}
-              </div>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-                className="text-xs text-white/80 hover:bg-white/10 rounded-xl focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none"
-                aria-label={isAutoPlaying ? "Pause autoplay" : "Play autoplay"}
-              >
-                {isAutoPlaying ? "Pause" : "Play"}
-              </Button>
-            </div>
-
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={nextSlide}
-              className="flex items-center gap-2 rounded-xl bg-white/10 border-white/20 text-white hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none"
-              aria-label="Next Insights"
-            >
-              Next
-              <ChevronRight className="w-4 h-4" />
-            </Button>
-          </div>
-
-          {/* Tips Carousel */}
-          <div className="overflow-x-hidden w-full">
-            <div
-              className={`flex transition-transform duration-500 ease-in-out ${visibleTips === 1 ? "" : "gap-6"}`}
-              style={
-                visibleTips === 1
-                  ? {
-                      width: `${insightTips.length * 100}vw`,
-                      transform: `translateX(-${currentIndex * 100}vw)`,
-                    }
-                  : {
-                      width: `${(paddedTips.length / visibleTips) * 100}%`,
-                      transform: `translateX(-${currentIndex * (100 / paddedTips.length)}%)`,
-                    }
-              }
-            >
-              {(visibleTips === 1 ? insightTips : paddedTips).map(
-                (tip, index) => {
-                  const IconComponent = tip.icon;
-                  return (
-                    <motion.div
-                      key={tip.id}
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{
-                        duration: 0.6,
-                        ease: "easeOut",
-                        delay: 0.1 * index,
-                      }}
-                      className={`flex-shrink-0 ${visibleTips === 1 ? "mx-auto" : ""}`}
-                      style={
-                        visibleTips === 1
-                          ? { width: "100vw", maxWidth: "20rem" }
-                          : { width: `${100 / paddedTips.length}%` }
-                      }
-                    >
-                      {tip.isPlaceholder && visibleTips !== 1 ? (
-                        <div className="h-full" />
-                      ) : (
-                        <Card
-                          className={`h-full border-none bg-white/10 backdrop-blur-lg shadow-xl rounded-2xl transition-all duration-300 mx-auto w-full max-w-xs group relative z-10`}
-                        >
-                          <CardContent className="p-6">
-                            <div className="flex items-start gap-4 mb-4">
-                              <div
-                                className={`p-3 rounded-xl bg-gradient-to-r ${tip.color} text-white flex-shrink-0 shadow-lg group-hover:scale-105 transition-transform duration-300`}
-                              >
-                                <IconComponent className="w-6 h-6 drop-shadow" />
-                              </div>
-                              <div className="flex-1">
-                                <div className="flex items-center gap-2 mb-2">
-                                  <h3 className="text-lg font-semibold text-white font-manrope drop-shadow">
-                                    {tip.title}
-                                  </h3>
-                                  <span
-                                    className={`px-2 py-1 rounded-full text-xs font-medium bg-white/10 text-white/80 font-inter`}
-                                  >
-                                    {tip.category}
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                            <p className="text-white/80 leading-relaxed font-inter drop-shadow-sm">
-                              {tip.content}
-                            </p>
-                          </CardContent>
-                        </Card>
-                      )}
-                    </motion.div>
-                  );
-                }
-              )}
-            </div>
-          </div>
-
-          {/* Progress Indicators */}
-          <div className="flex justify-center mt-6 gap-2 z-10 relative">
-            {Array.from({ length: paddedTotalSections }).map((_, index) => (
-              <button
-                key={index}
-                onClick={() => {
-                  setCurrentIndex(index * visibleTips);
-                  setIsAutoPlaying(false);
-                }}
-                className={`w-2 h-2 rounded-full transition-all duration-300 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none ${
-                  Math.floor(currentIndex / visibleTips) === index
-                    ? "bg-white w-8"
-                    : "bg-white/30 hover:bg-white/50"
-                }`}
-                aria-label={`Go to insights section ${index + 1}`}
-              />
-            ))}
-          </div>
+          <InfiniteMovingCards
+            items={insightTips.map(tip => ({
+              quote: tip.content,
+              name: tip.title,
+              title: tip.category,
+              icon: tip.icon
+            }))}
+            direction="left"
+            speed="normal"
+            pauseOnHover={true}
+          />
         </div>
 
         <motion.div
@@ -379,7 +257,7 @@ const MicroBlog = () => {
             Want personalized insights for your website?
           </p>
           <Button
-            className="bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-3 rounded-xl font-bold shadow-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none font-inter"
+            className="bg-white hover:text-white hover:bg-black text-black px-8 py-3 rounded-xl font-bold shadow-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none font-inter"
             onClick={handleCustomAnalysisClick}
           >
             Get Custom Analysis

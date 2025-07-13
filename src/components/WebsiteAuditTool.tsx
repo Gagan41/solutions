@@ -128,7 +128,7 @@ const WebsiteAuditTool = () => {
         >
           <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight leading-snug text-white drop-shadow-lg font-inter mb-4">
             Free AI Website{" "}
-            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <span className="text-white"> 
               Audit Tool
             </span>
           </h2>
@@ -188,7 +188,7 @@ const WebsiteAuditTool = () => {
                 <Button
                   onClick={analyzeWebsite}
                   disabled={!url || isAnalyzing}
-                  className="w-full bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 hover:from-purple-700 hover:to-blue-700 text-white font-bold rounded-xl shadow-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none transition-all duration-300"
+                  className="w-full bg-white hover:text-white hover:bg-black text-black font-bold rounded-xl shadow-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none transition-all duration-300"
                   aria-label="Get Free Audit"
                 >
                   {isAnalyzing ? (
@@ -283,7 +283,7 @@ const WebsiteAuditTool = () => {
                   </div>
 
                   {/* Lead Capture */}
-                  <div className="bg-gradient-to-r from-blue-900/80 to-purple-900/80 rounded-xl p-6 text-white shadow-lg mt-8">
+                  <div className="bg-gray-700 rounded-xl p-6 text-white shadow-lg mt-8">
                     <h3 className="text-xl font-semibold mb-2 font-inter">
                       Get Your Detailed Report
                     </h3>
@@ -324,7 +324,7 @@ const WebsiteAuditTool = () => {
                           <Button
                             onClick={handleEmailSubmit}
                             disabled={!email || isSubmittingEmail}
-                            className="bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 hover:from-purple-700 hover:to-blue-700 text-white font-bold rounded-xl shadow-md focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none transition-all duration-300 disabled:opacity-50"
+                            className="bg-white hover:bg-black hover:text-white text-black font-bold rounded-xl shadow-md focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none transition-all duration-300 disabled:opacity-50"
                             aria-label="Submit Email"
                           >
                             {isSubmittingEmail ? (

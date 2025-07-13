@@ -76,7 +76,7 @@ const ClientSuccessTimeline = () => {
         author: "Kiran Kumar",
         position: "Nandi Agrotech",
       },
-      image: "https://nandi-agrotech.in/assets/hero-O2UdrBDE.jpg",
+      image: "images/nandi.jpeg",
     },
     {
       id: "2",
@@ -179,7 +179,7 @@ const ClientSuccessTimeline = () => {
         >
           <h2 className="text-4xl font-extrabold leading-snug tracking-tight text-white drop-shadow-lg font-inter sm:text-5xl">
             Client{" "}
-            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <span className="text-white">
               Success Stories
             </span>
           </h2>
@@ -338,7 +338,7 @@ const ClientSuccessTimeline = () => {
                             </div>
 
                             {/* Testimonial */}
-                            <div className="mt-6 rounded-xl bg-gradient-to-r from-blue-900/80 to-purple-900/80 p-4 text-white shadow-lg sm:mt-8 sm:p-6">
+                            <div className="mt-6 rounded-xl bg-gray-700 p-4 text-white shadow-lg sm:mt-8 sm:p-6">
                               <Quote className="mb-4 h-8 w-8 text-yellow-300" />
                               <p className="mb-4 text-base italic font-manrope sm:text-lg">
                                 "{study.testimonial.text}"
@@ -386,7 +386,7 @@ const ClientSuccessTimeline = () => {
           <div className="flex justify-center">
             <Magnet padding={150} disabled={false} magnetStrength={10}>
               <Button
-                className="bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 hover:from-purple-700 hover:to-blue-700 text-white px-6 sm:px-8 py-3 text-base sm:text-lg rounded-xl font-bold shadow-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none font-inter"
+                className="bg-white hover:bg-black hover:text-white text-black px-6 sm:px-8 py-3 text-base sm:text-lg rounded-xl font-bold shadow-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none font-inter"
                 onClick={handleStartSuccessStory}
               >
                 Start Your Success Story

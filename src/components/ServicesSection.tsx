@@ -99,12 +99,9 @@ const ServicesSection = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-4 tracking-tight font-inter drop-shadow-lg">
-            Our{" "}
-            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-              Services
-            </span>
+            Our Services
           </h2>
-          <p className="text-xl text-white/80 max-w-3xl mx-auto font-manrope drop-shadow-md">
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto font-manrope drop-shadow-md">
             We provide comprehensive digital solutions to help your business
             thrive in the digital landscape.
           </p>
@@ -138,27 +135,27 @@ const ServicesSection = () => {
                     className="h-full w-full max-w-[320px] md:max-w-none"
                     style={{ background: "transparent", border: "none" }}
                   >
-                    <Card className="h-full w-full group border-none bg-white/10 backdrop-blur-lg shadow-2xl rounded-3xl transition-all duration-300 hover:shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] hover:bg-white/20 ring-1 ring-white/10">
+                    <Card className="h-full w-full group border-none bg-white/5 backdrop-blur-lg shadow-2xl rounded-3xl transition-all duration-300 hover:shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] hover:bg-white/10 ring-1 ring-white/10">
                       <CardHeader className="text-center pb-4">
                         <motion.div
                           whileHover={{ scale: 1.1, rotate: 5 }}
                           className="mx-auto mb-4 p-4 bg-gradient-to-br from-blue-700/80 to-purple-700/80 rounded-2xl w-16 h-16 flex items-center justify-center shadow-lg"
                         >
-                          <IconComponent className="w-8 h-8 text-white drop-shadow-md" />
+                          <IconComponent className="w-8 h-8 text-blue-200 drop-shadow-md" />
                         </motion.div>
-                        <CardTitle className="text-2xl font-bold text-white group-hover:text-blue-200 transition-colors font-manrope drop-shadow">
+                        <CardTitle className="text-2xl font-bold text-gray-100 group-hover:text-blue-200 transition-colors font-manrope drop-shadow">
                           {service.title}
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="text-center">
-                        <CardDescription className="text-white/80 mb-6 text-base leading-relaxed font-inter">
+                        <CardDescription className="text-gray-300 mb-6 text-base leading-relaxed font-inter">
                           {service.description}
                         </CardDescription>
                         <ul className="space-y-2 mb-6">
                           {service.features.map((feature, featureIndex) => (
                             <li
                               key={featureIndex}
-                              className="text-sm text-white/90 flex items-center justify-center gap-2 font-manrope"
+                              className="text-sm text-gray-200 flex items-center justify-center gap-2 font-manrope"
                             >
                               <div className="w-1.5 h-1.5 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full"></div>
                               {feature}
@@ -169,7 +166,7 @@ const ServicesSection = () => {
                           <Link href="/detailed-information">
                             <Button
                               variant="outline"
-                              className="group-hover:bg-gradient-to-r group-hover:from-blue-700 group-hover:to-purple-700 group-hover:text-white group-hover:border-transparent transition-all duration-300 flex items-center gap-2 border-white/20 bg-white/10 text-white/90 font-inter rounded-full shadow-md backdrop-blur-md"
+                              className="bg-tranparent text-white border border-white hover:bg-white hover:text-black hover:border-blue-600 transition-all duration-300 flex items-center gap-2 font-inter rounded-full shadow-md backdrop-blur-md"
                             >
                               Learn More
                               <ArrowRight
@@ -224,7 +221,7 @@ const ServicesSection = () => {
                           <Link href="/detailed-information">
                             <Button
                               variant="outline"
-                              className="group-hover:bg-gradient-to-r group-hover:from-blue-700 group-hover:to-purple-700 group-hover:text-white group-hover:border-transparent transition-all duration-300 flex items-center gap-2 border-white/20 bg-white/10 text-white/90 font-inter rounded-full shadow-md backdrop-blur-md"
+                              className="bg-tranparent text-white border border-white hover:bg-white hover:text-black hover:border-blue-600 transition-all duration-300 flex items-center gap-2 font-inter rounded-full shadow-md backdrop-blur-md"
                             >
                               Learn More
                               <ArrowRight
@@ -279,7 +276,7 @@ const ServicesSection = () => {
                           <Link href="/detailed-information">
                             <Button
                               variant="outline"
-                              className="group-hover:bg-gradient-to-r group-hover:from-blue-700 group-hover:to-purple-700 group-hover:text-white group-hover:border-transparent transition-all duration-300 flex items-center gap-2 border-white/20 bg-white/10 text-white/90 font-inter rounded-full shadow-md backdrop-blur-md"
+                              className="bg-tranparent text-white border border-white hover:bg-white hover:text-black hover:border-blue-600 transition-all duration-300 flex items-center gap-2 font-inter rounded-full shadow-md backdrop-blur-md"
                             >
                               Learn More
                               <ArrowRight
@@ -307,7 +304,7 @@ const ServicesSection = () => {
         >
           <Button
             size="lg"
-            className="bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-4 text-lg font-semibold rounded-full shadow-xl transition-all duration-300 border-none font-manrope"
+            className="bg-white hover:text-white hover:bg-black text-black px-8 py-4 text-lg font-semibold rounded-full shadow-xl transition-all duration-300 border-none font-manrope"
             onClick={handleConsultationClick}
           >
             Get a Free Consultation

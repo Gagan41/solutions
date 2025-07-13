@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Compass, Palette, Code, Rocket, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -74,14 +74,22 @@ const phases = [
 ];
 
 const LiveProjectShowcase = () => {
-  const [activePhase, setActivePhase] = useState(phases[0].id);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % phases.length);
+    }, 10000); // 10 seconds
+    return () => clearInterval(interval);
+  }, []);
 
   const handleStartProjectClick = () => {
     const event = new CustomEvent("openStickyCTA");
     window.dispatchEvent(event);
   };
 
-  const ActiveIcon = phases.find((p) => p.id === activePhase)?.icon;
+  const phase = phases[activeIndex];
+  const ActiveIcon = phase.icon;
 
   return (
     <section id="about" className="py-24 px-4 sm:px-6 lg:px-8">
@@ -100,7 +108,7 @@ const LiveProjectShowcase = () => {
         >
           <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight leading-snug text-white drop-shadow-lg font-inter mb-4">
             Our Blueprint for{" "}
-            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <span className="text-white">
               Digital Success
             </span>
           </h2>
@@ -110,97 +118,47 @@ const LiveProjectShowcase = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 relative z-10">
-          <div className="lg:col-span-4">
-            <div className="sticky top-24">
-              <div className="space-y-2">
-                {phases.map((phase) => (
-                  <button
-                    key={phase.id}
-                    onClick={() => setActivePhase(phase.id)}
-                    className={`w-full text-left p-4 rounded-lg transition-all duration-300 flex items-center gap-4 border ${
-                      activePhase === phase.id
-                        ? "bg-white/20 border-white/30 shadow-lg"
-                        : "bg-white/5 border-white/10 hover:bg-white/10"
-                    }`}
-                  >
-                    <div
-                      className={`p-2 rounded-full bg-white/10 ${
-                        activePhase === phase.id ? phase.color : "text-white/70"
-                      }`}
-                    >
-                      <phase.icon className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <h3
-                        className={`text-lg font-bold font-manrope ${
-                          activePhase === phase.id
-                            ? "text-white"
-                            : "text-white/80"
-                        }`}
-                      >
-                        {phase.title}
-                      </h3>
-                    </div>
-                  </button>
-                ))}
+        {/* Centered, auto-advancing phase card */}
+        <div className="flex flex-col items-center justify-center min-h-[400px] relative z-10">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={phase.id}
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -40 }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
+              className={`max-w-2xl w-full mx-auto flex flex-col justify-center p-8 sm:p-10 rounded-2xl border border-white/20 shadow-2xl bg-gradient-to-br ${phase.gradient}`}
+            >
+              <div className="flex items-center gap-4 mb-4">
+                {ActiveIcon && (
+                  <ActiveIcon className={`w-10 h-10 ${phase.color}`} />
+                )}
+                <h3 className="text-3xl font-extrabold text-white font-inter drop-shadow-md">
+                  {phase.title}
+                </h3>
               </div>
-            </div>
-          </div>
-
-          <div className="lg:col-span-8">
-            <AnimatePresence mode="wait">
-              {phases
-                .filter((p) => p.id === activePhase)
-                .map((phase) => (
-                  <motion.div
-                    key={phase.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className={`p-8 rounded-2xl border border-white/20 shadow-2xl bg-gradient-to-br ${phase.gradient}`}
+              <p className="text-white/80 text-lg mb-8 font-manrope leading-relaxed">
+                {phase.description}
+              </p>
+              <h4 className="text-xl font-bold text-white mb-4 font-inter">
+                Key Activities & Deliverables
+              </h4>
+              <ul className="space-y-3">
+                {phase.details.map((detail, index) => (
+                  <motion.li
+                    key={index}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                    className="flex items-start gap-3"
                   >
-                    <div className="flex items-center gap-4 mb-4">
-                      {ActiveIcon && (
-                        <ActiveIcon className={`w-10 h-10 ${phase.color}`} />
-                      )}
-                      <h3 className="text-3xl font-extrabold text-white font-inter drop-shadow-md">
-                        {phase.title}
-                      </h3>
-                    </div>
-                    <p className="text-white/80 text-lg mb-8 font-manrope leading-relaxed">
-                      {phase.description}
-                    </p>
-
-                    <h4 className="text-xl font-bold text-white mb-4 font-inter">
-                      Key Activities & Deliverables
-                    </h4>
-                    <ul className="space-y-3">
-                      {phase.details.map((detail, index) => (
-                        <motion.li
-                          key={index}
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{
-                            duration: 0.3,
-                            delay: index * 0.1,
-                          }}
-                          className="flex items-start gap-3"
-                        >
-                          <Check
-                            className={`w-5 h-5 mt-1 flex-shrink-0 ${phase.color}`}
-                          />
-                          <span className="text-white/90 font-manrope">
-                            {detail}
-                          </span>
-                        </motion.li>
-                      ))}
-                    </ul>
-                  </motion.div>
+                    <Check className={`w-5 h-5 mt-1 flex-shrink-0 ${phase.color}`} />
+                    <span className="text-white/90 font-manrope">{detail}</span>
+                  </motion.li>
                 ))}
-            </AnimatePresence>
-          </div>
+              </ul>
+            </motion.div>
+          </AnimatePresence>
         </div>
 
         <motion.div
@@ -217,7 +175,7 @@ const LiveProjectShowcase = () => {
             <Button
               onClick={handleStartProjectClick}
               size="lg"
-              className="bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-4 text-lg font-semibold rounded-full shadow-xl transition-all duration-300 border-none font-manrope"
+              className="bg-white hover:text-white hover:bg-black text-black px-8 py-3 rounded-xl font-bold shadow-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none font-inter"
             >
               Let's Build Together
             </Button>

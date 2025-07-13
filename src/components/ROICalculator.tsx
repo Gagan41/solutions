@@ -182,7 +182,7 @@ const ROICalculator = () => {
         >
           <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight leading-snug text-white drop-shadow-lg font-inter mb-4">
             ROI{" "}
-            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <span className="text-white">
               Calculator
             </span>
           </h2>
@@ -279,7 +279,7 @@ const ROICalculator = () => {
 
                 <Button
                   onClick={handleCalculate}
-                  className="w-full bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 hover:from-purple-700 hover:to-blue-700 text-white font-bold rounded-xl shadow-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none transition-all duration-300"
+                  className="w-full bg-white hover:text-white hover:bg-black text-black px-8 py-3 rounded-xl font-bold shadow-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none font-inter"
                 >
                   Calculate My ROI
                   <ArrowRight className="w-4 h-4 ml-2" />
@@ -308,13 +308,13 @@ const ROICalculator = () => {
                     <TabsList className="grid w-full grid-cols-2 bg-white/10 rounded-xl">
                       <TabsTrigger
                         value="monthly"
-                        className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-700 data-[state=active]:to-purple-700 data-[state=active]:text-white rounded-xl font-bold font-inter focus:outline-none focus:ring-0 focus:bg-transparent focus:text-white/80 transition-all duration-200 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-0 focus-visible:bg-transparent"
+                        className="data-[state=active]:bg-white data-[state=active]:text-black rounded-xl font-bold font-inter focus:outline-none focus:ring-0 focus:bg-white focus:text-black transition-all duration-200 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-0 focus-visible:bg-transparent"
                       >
                         Monthly
                       </TabsTrigger>
                       <TabsTrigger
                         value="yearly"
-                        className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-700 data-[state=active]:to-purple-700 data-[state=active]:text-white rounded-xl font-bold font-inter focus:outline-none focus:ring-0 focus:bg-transparent focus:text-white/80 transition-all duration-200 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-0 focus-visible:bg-transparent"
+                        className="data-[state=active]:bg-white data-[state=active]:text-black rounded-xl font-bold font-inter focus:outline-none focus:ring-0 focus:bg-white focus:text-black transition-all duration-200 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-0 focus-visible:bg-transparent"
                       >
                         Yearly
                       </TabsTrigger>
@@ -337,13 +337,13 @@ const ROICalculator = () => {
                           <div className="text-2xl font-bold text-white font-inter drop-shadow">
                             {formatCurrency(roiData.projectedRevenue)}
                           </div>
-                          <div className="text-sm text-white/70 font-manrope">
+                          <div className="text-sm text-white font-manrope">
                             Projected Revenue
                           </div>
                         </div>
                       </div>
 
-                      <div className="text-center p-6 bg-gradient-to-r from-blue-900/80 to-purple-900/80 rounded-xl shadow-lg">
+                      <div className="text-center p-6 bg-trasnparent rounded-xl shadow-lg">
                         <div className="text-3xl font-bold text-white font-inter mb-2 drop-shadow">
                           {formatCurrency(roiData.monthlyROI)}
                         </div>
@@ -354,7 +354,7 @@ const ROICalculator = () => {
                     </TabsContent>
 
                     <TabsContent value="yearly" className="space-y-4 mt-6">
-                      <div className="text-center p-8 bg-gradient-to-r from-blue-900/80 to-purple-900/80 rounded-xl text-white shadow-lg">
+                      <div className="text-center p-8 bg-trasparent rounded-xl text-white shadow-lg">
                         <div className="text-4xl font-bold mb-2 font-inter drop-shadow">
                           {formatCurrency(roiData.yearlyROI)}
                         </div>
@@ -435,8 +435,8 @@ const ROICalculator = () => {
                             ? "bg-green-600 hover:bg-green-700"
                             : submitStatus === "error"
                               ? "bg-red-600 hover:bg-red-700"
-                              : "bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 hover:from-purple-700 hover:to-blue-700"
-                        } text-white`}
+                              : "bg-white text-black hover:bg-black hover:text-white"
+                        }`}
                         disabled={isSubmitting}
                       >
                         {isSubmitting ? (

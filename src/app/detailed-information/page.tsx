@@ -98,7 +98,7 @@ const DetailedInformation = () => {
           <Link href="/#services">
             <Button
               variant="outline"
-              className="flex items-center gap-2 border-white/20 bg-white/10 text-white/90 font-inter rounded-full shadow-md backdrop-blur-md hover:bg-white/20 transition-all duration-300"
+              className="bg-white hover:text-white hover:bg-gray-700 text-black px-8 py-4 text-lg font-semibold rounded-full shadow-xl transition-all duration-300 border-none font-manrope"
             >
               <ArrowLeft size={16} />
               Back to Services
@@ -115,7 +115,7 @@ const DetailedInformation = () => {
         >
           <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-4 tracking-tight font-inter drop-shadow-lg">
             Detailed{" "}
-            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <span className="text-white">
               Information
             </span>
           </h1>
@@ -231,7 +231,7 @@ const DetailedInformation = () => {
         >
           <Button
             size="lg"
-            className="bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-4 text-lg font-semibold rounded-full shadow-xl transition-all duration-300 border-none font-manrope"
+            className="bg-white hover:text-white hover:bg-gray-700 text-black px-8 py-4 text-lg font-semibold rounded-full shadow-xl transition-all duration-300 border-none font-manrope"
           >
             Get a Free Consultation
           </Button>

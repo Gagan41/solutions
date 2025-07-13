@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import ShinyText from "@/components/ui/ShinyText";
 import VariableProximity from "@/components/ui/VariableProximity";
 import StarBorder from "@/components/ui/StarBorder";
+import MagnetLines from "@/components/ui/MagnetLines";
+import Cubes from "@/components/ui/Cubes";
 import { useRef } from "react";
 
 const HeroSection = () => {
@@ -20,9 +22,44 @@ const HeroSection = () => {
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center bg-transparent text-white"
+      className="min-h-screen flex items-center justify-center bg-transparent text-white relative overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      {/* MagnetLines positioned in top left corner */}
+      <div className="absolute top-1/2 left-0 z-0 transform -rotate-12 -translate-y-1/2 w-[220px] h-[220px] sm:w-[200px] sm:h-[200px] md:w-[340px] md:h-[340px] lg:w-[350px] lg:h-[350px] opacity-30 sm:opacity-40 md:opacity-60">
+        <MagnetLines
+          rows={9}
+          columns={9}
+          containerSize="100%"
+          lineColor="rgb(255, 255, 255)"
+          lineWidth="0.8vmin"
+          lineHeight="4vmin"
+          baseAngle={-5}
+          style={{
+            margin: "1rem",
+            opacity: 1,
+            transform: "rotate(-12deg) scale(0.8)",
+          }}
+        />
+      </div>
+
+      {/* Cubes positioned in right middle */}
+      <div className="absolute top-1/2 right-0 z-0 transform rotate-12 -translate-y-1/2 w-[200px] h-[200px] sm:w-[230px] sm:h-[230px] md:w-[340px] md:h-[340px] lg:w-[500px] lg:h-[500px] opacity-30 sm:opacity-40 md:opacity-60">
+        <Cubes
+          gridSize={8}
+          maxAngle={60}
+          radius={4}
+          borderStyle="2px dashed rgb(255, 255, 255)"
+          faceColor="rgba(0, 0, 0, 0.8)"
+          rippleColor="rgba(59, 130, 246, 0.8)"
+          rippleSpeed={1.5}
+          autoAnimate={true}
+          rippleOnClick={true}
+          duration={{ enter: 0.7, leave: 1.2 }}
+          easing="power1.inOut"
+        />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
         <div className="text-center">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -34,14 +71,14 @@ const HeroSection = () => {
               text="Digital Excellence"
               disabled={false}
               speed={3}
-              className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text"
+              className="bg-clip-text"
             />
             <br />
             <ShinyText
               text="Delivered"
               disabled={false}
               speed={3}
-              className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text"
+              className="bg-clip-text"
             />
           </motion.h1>
 
@@ -101,11 +138,11 @@ const HeroSection = () => {
             className="mt-16"
           >
             <div className="relative max-w-2xl mx-auto rounded-3xl overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 to-orange-300 rounded-3xl blur-3xl opacity-20 z-0"></div>
+              <div className="absolute inset-0 rounded-3xl blur-3xl opacity-20 z-0"></div>
               <img
-                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80"
+                src="/images/hero.webp"
                 alt="Digital workspace"
-                className="relative rounded-3xl z-10 w-full h-auto shadow-2xl"
+                className="relative rounded-3xl z-10 w-full h-auto"
               />
             </div>
           </motion.div>

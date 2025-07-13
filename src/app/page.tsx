@@ -15,7 +15,7 @@ export default function Page() {
   return (
     <>
       <HeroIntro />
-      <div className="min-h-screen w-full bg-gradient-to-br from-[#181C2A] via-[#232946] to-[#181C2A]">
+      <div className="min-h-screen w-full overflow-x-hidden bg-black">
         <Navbar />
         <HeroSection />
         <ServicesSection />
