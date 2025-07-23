@@ -30,7 +30,7 @@ const Footer = () => {
     "Web Development",
     "Digital Marketing",
     "SEO Services",
-    "E-commerce Solutions",
+    "AI Automation",
   ];
 
   return (
