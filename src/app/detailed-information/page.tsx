@@ -9,12 +9,12 @@ const DetailedInformation = () => {
   const services = [
     {
       icon: Code,
-      title: "Web Development",
-      description: "In today's digital-first world, a robust online presence is critical for any business. We specialize in custom website and web application development using cutting-edge technologies like React, Next.js, and Node.js. Our focus is on creating dynamic, high-performance digital experiences tailored to your business needs.",
+      title: "Web Development,Design and Services",
+      description: "In today's digital-first world, a robust online presence is critical for any business.As a web development agency, we specialize in custom website and web application development using cutting-edge technologies like React, Next.js, and Node.js. Our focus is on creating dynamic, high-performance digital experiences tailored to your business needs.",
       highlights: [
         {
-          title: "Responsive Design",
-          description: "Our websites adapt seamlessly across all screen sizes, ensuring a consistent and intuitive user experience on desktops, tablets, and mobile devices."
+          title: "Responsive and Customized Design",
+          description: "Our websites adapt seamlessly across all screen sizes, ensuring a consistent and intuitive user experience on desktops, tablets, and mobile devices. We also create customized designs that are tailored to your brand and business needs."
         },
         {
           title: "Fast Performance",
