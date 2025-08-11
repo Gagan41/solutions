@@ -24,38 +24,39 @@ const HeroSection = () => {
       id="home"
       className="min-h-screen flex items-center justify-center bg-transparent text-white relative overflow-hidden"
     >
-      {/* MagnetLines positioned in top left corner */}
-      <div className="absolute top-1/2 left-0 z-0 transform -rotate-12 -translate-y-1/2 w-[220px] h-[220px] sm:w-[200px] sm:h-[200px] md:w-[340px] md:h-[340px] lg:w-[350px] lg:h-[350px] opacity-30 sm:opacity-40 md:opacity-60">
+      {/* MagnetLines over top-left purple glow */}
+      <div className="absolute top-[14%] left-[2%] z-0 pointer-events-none w-[140px] h-[140px] sm:w-[160px] sm:h-[160px] md:w-[220px] md:h-[220px] lg:w-[260px] lg:h-[260px] opacity-40 sm:opacity-50 md:opacity-60">
         <MagnetLines
           rows={9}
           columns={9}
           containerSize="100%"
           lineColor="rgb(255, 255, 255)"
-          lineWidth="0.8vmin"
-          lineHeight="4vmin"
+          lineWidth="0.65vmin"
+          lineHeight="3vmin"
           baseAngle={-5}
           style={{
-            margin: "1rem",
+            margin: "0.5rem",
             opacity: 1,
-            transform: "rotate(-12deg) scale(0.8)",
+            transform: "rotate(-12deg) scale(0.85)",
           }}
         />
       </div>
 
-      {/* Cubes positioned in right middle */}
-      <div className="absolute top-1/2 right-0 z-0 transform rotate-12 -translate-y-1/2 w-[200px] h-[200px] sm:w-[230px] sm:h-[230px] md:w-[340px] md:h-[340px] lg:w-[500px] lg:h-[500px] opacity-30 sm:opacity-40 md:opacity-60">
-        <Cubes
-          gridSize={8}
-          maxAngle={60}
-          radius={4}
-          borderStyle="2px dashed rgb(255, 255, 255)"
-          faceColor="rgba(0, 0, 0, 0.8)"
-          rippleColor="rgba(59, 130, 246, 0.8)"
-          rippleSpeed={1.5}
-          autoAnimate={true}
-          rippleOnClick={true}
-          duration={{ enter: 0.7, leave: 1.2 }}
-          easing="power1.inOut"
+      {/* MagnetLines over bottom-right purple glow */}
+      <div className="absolute bottom-[10%] right-[3%] z-0 pointer-events-none w-[140px] h-[140px] sm:w-[160px] sm:h-[160px] md:w-[220px] md:h-[220px] lg:w-[260px] lg:h-[260px] opacity-40 sm:opacity-50 md:opacity-60">
+        <MagnetLines
+          rows={9}
+          columns={9}
+          containerSize="100%"
+          lineColor="rgb(255, 255, 255)"
+          lineWidth="0.65vmin"
+          lineHeight="3vmin"
+          baseAngle={5}
+          style={{
+            margin: "0.5rem",
+            opacity: 1,
+            transform: "rotate(12deg) scale(0.85)",
+          }}
         />
       </div>
 
@@ -89,7 +90,7 @@ const HeroSection = () => {
           >
             <VariableProximity
               label="Transform your business with cutting-edge web development,strategic marketing, and powerful SEO solutions."
-              className="text-2xl md:text-2xl lg:text-4xl text-white/50 max-w-4xl mx-auto leading-relaxed font-['Roboto_Flex'] whitespace-pre-line"
+              className="text-2xl md:text-2xl lg:text-4xl text-white/90 max-w-4xl mx-auto leading-relaxed font-['Roboto_Flex'] whitespace-pre-line"
               fromFontVariationSettings="'wght' 400, 'opsz' 9"
               toFontVariationSettings="'wght' 1000, 'opsz' 40"
               containerRef={containerRef}
@@ -129,22 +130,6 @@ const HeroSection = () => {
               View Our Services
               <ArrowRight size={18} />
             </motion.button>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.8 }}
-            className="mt-16"
-          >
-            <div className="relative max-w-2xl mx-auto rounded-3xl overflow-hidden">
-              <div className="absolute inset-0 rounded-3xl blur-3xl opacity-20 z-0"></div>
-              <img
-                src="/images/hero.webp"
-                alt="Digital workspace"
-                className="relative rounded-3xl z-10 w-full h-auto"
-              />
-            </div>
           </motion.div>
         </div>
       </div>
