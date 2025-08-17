@@ -230,42 +230,46 @@ const industryData: Record<string, IndustryData> = {
   },
 };
 
-// ✅ Define correct props type (no PageProps)
+// ✅ FIXED: Updated PageProps type to make params a Promise
 type PageProps = {
-  params: {
+  params: Promise<{
     industry: string;
-  };
+  }>;
 };
 
-// ✅ Metadata generator
+// ✅ FIXED: generateMetadata is now async and awaits params
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const industry = industryData[params.industry];
+  // Await the params Promise to get the actual values
+  const { industry } = await params;
+  const industryInfo = industryData[industry];
 
-  if (!industry) {
+  if (!industryInfo) {
     return {
       title: "Industry Not Found",
     };
   }
 
   return {
-    title: `${industry.title} | Courtinex Webstudio`,
-    description: industry.description,
-    keywords: `${industry.name.toLowerCase()} digital marketing, ${industry.name.toLowerCase()} web design, ${industry.name.toLowerCase()} SEO`,
+    title: `${industryInfo.title} | Courtinex Webstudio`,
+    description: industryInfo.description,
+    keywords: `${industryInfo.name.toLowerCase()} digital marketing, ${industryInfo.name.toLowerCase()} web design, ${industryInfo.name.toLowerCase()} SEO`,
   };
 }
 
-// ✅ Actual page
-export default function IndustryPage({ params }: PageProps) {
-  const industry = industryData[params.industry];
+// ✅ FIXED: Page component is now async and awaits params
+export default async function IndustryPage({ params }: PageProps) {
+  // Await the params Promise to get the actual values
+  const { industry } = await params;
+  const industryInfo = industryData[industry];
 
-  if (!industry) {
+  if (!industryInfo) {
     notFound();
   }
 
-  return <IndustryLandingPage industry={industry} />;
+  return <IndustryLandingPage industry={industryInfo} />;
 }
 
-// ✅ Static params for SSG
+// ✅ generateStaticParams remains unchanged
 export async function generateStaticParams() {
   return Object.keys(industryData).map((industry) => ({
     industry,
