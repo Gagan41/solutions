@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import IndustryLandingPage from "@/components/IndustryLandingPage";
 
 interface IndustryData {
@@ -230,13 +230,13 @@ const industryData: Record<string, IndustryData> = {
   },
 };
 
-interface Props {
+type PageProps = {
   params: {
     industry: string;
   };
-}
+};
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const industry = industryData[params.industry];
 
   if (!industry) {
@@ -252,7 +252,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function IndustryPage({ params }: Props) {
+export default function IndustryPage({ params }: PageProps) {
   const industry = industryData[params.industry];
 
   if (!industry) {
