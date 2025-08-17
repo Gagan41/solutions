@@ -7,7 +7,7 @@ import { DateRange } from "react-day-picker";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
+
 import {
   Popover,
   PopoverContent,
@@ -28,7 +28,7 @@ export default function DatePickerWithRange({
         <PopoverTrigger asChild>
           <Button
             id="date"
-            variant={"outline"}
+            variant="outline"
             className={cn(
               "w-[300px] justify-start text-left font-normal",
               !date && "text-muted-foreground",
@@ -49,15 +49,11 @@ export default function DatePickerWithRange({
             )}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-auto p-0" align="start">
-          <Calendar
-            initialFocus
-            mode="range"
-            defaultMonth={date?.from}
-            selected={date}
-            onSelect={setDate}
-            numberOfMonths={2}
-          />
+        <PopoverContent
+          className="w-[300px] p-4 text-sm text-muted-foreground"
+          align="start"
+        >
+          No calendar here — you can put custom content instead.
         </PopoverContent>
       </Popover>
     </div>
