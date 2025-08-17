@@ -13,10 +13,10 @@ import {
 
 const Footer = () => {
   const socialLinks = [
-    { icon: Facebook, href: "#", label: "Facebook" },
-    { icon: Twitter, href: "#", label: "Twitter" },
-    { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: Linkedin, href: "#", label: "LinkedIn" },
+    { icon: Facebook, href: "https://www.facebook.com/share/19k7Cho6Bt/", label: "Facebook" },
+    { icon: Twitter, href: "https://x.com/CORTINEX_?t=uVJuGeNRj2LRjBWtHFlaLg&s=08", label: "Twitter" },
+    { icon: Instagram, href: "https://www.instagram.com/cortinexwebstudio?utm_source=qr&igsh=MnEzeXhseHl1cXVh", label: "Instagram" },
+    { icon: Linkedin, href: "https://www.linkedin.com/in/cortinex-webstudio-562b9137a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app", label: "LinkedIn" },
   ];
 
   const quickLinks = [

@@ -42,6 +42,7 @@ const ClientSuccessTimeline = () => {
         Explore Our UI Case Studies
       </motion.h2>
 
+      {/* Figma Prototypes */}
       <div className="flex flex-wrap justify-center gap-10 mb-12">
         {[
           {
@@ -75,6 +76,56 @@ const ClientSuccessTimeline = () => {
               <p className="text-lg font-medium">{label}</p>
             </div>
           </motion.div>
+        ))}
+      </div>
+
+      {/* Website Links Section */}
+      <motion.h3
+        initial={{ opacity: 0, y: -10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="text-3xl font-semibold mb-8"
+      >
+        Explore Our Live Websites
+      </motion.h3>
+
+      <div className="flex flex-wrap justify-center gap-10 mb-12">
+        {[
+          {
+            id: "ecom",
+            label: "E-Commerce Website",
+            src: "/images/ecom.png",
+            link: "http://flipzon.cortinex-webstudio.com", 
+          },
+          {
+            id: "portfolio",
+            label: "Portfolio Website",
+            src: "/images/portfolio.png",
+            link: "http://portfolio.cortinex-webstudio.com", 
+          },
+        ].map(({ id, label, src, link }) => (
+          <motion.a
+            key={id}
+            href={link || "#"}
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.05 }}
+            className="group transition-all duration-300 rounded-xl bg-white/5 backdrop-blur-md hover:shadow-2xl hover:ring-2 hover:ring-green-400"
+          >
+            <Image
+              src={src}
+              alt={label}
+              width={300}
+              height={200}
+              className="rounded-t-xl object-cover"
+              placeholder="blur"
+              blurDataURL="/images/blur-placeholder.png"
+              loading="lazy"
+            />
+            <div className="p-4">
+              <p className="text-lg font-medium">{label}</p>
+            </div>
+          </motion.a>
         ))}
       </div>
 
