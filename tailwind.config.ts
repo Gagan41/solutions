@@ -28,9 +28,6 @@ const config = {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
         },
-        backdropBlur: {
-          xs: "2px",
-        },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
@@ -55,7 +52,7 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Premium minimalistic color palette
+        // Premium minimalistic palette
         platinum: {
           50: "#fafafa",
           100: "#f5f5f5",
@@ -132,6 +129,7 @@ const config = {
         "star-movement-bottom":
           "star-movement-bottom linear infinite alternate",
         "star-movement-top": "star-movement-top linear infinite alternate",
+        // 🔥 Supports dynamic speed/direction for your InfiniteMovingCards
         scroll:
           "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
       },
