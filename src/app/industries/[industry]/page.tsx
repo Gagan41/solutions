@@ -230,13 +230,15 @@ const industryData: Record<string, IndustryData> = {
   },
 };
 
-type Props = {
+// ✅ Define correct props type (no PageProps)
+type PageProps = {
   params: {
     industry: string;
   };
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+// ✅ Metadata generator
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const industry = industryData[params.industry];
 
   if (!industry) {
@@ -252,7 +254,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function IndustryPage({ params }: Props) {
+// ✅ Actual page
+export default function IndustryPage({ params }: PageProps) {
   const industry = industryData[params.industry];
 
   if (!industry) {
@@ -262,7 +265,7 @@ export default function IndustryPage({ params }: Props) {
   return <IndustryLandingPage industry={industry} />;
 }
 
-// ✅ generateStaticParams stays the same
+// ✅ Static params for SSG
 export async function generateStaticParams() {
   return Object.keys(industryData).map((industry) => ({
     industry,
